@@ -1,0 +1,23 @@
+# Operating system files
+.DS_Store
+Thumbs.db
+
+# Python cache and test artefacts
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local environments
+.venv/
+venv/
+env/
+
+# Local notebooks
+.ipynb_checkpoints/
+
+# Local secrets and machine-specific configuration
+.env
+.env.*
+*.local
