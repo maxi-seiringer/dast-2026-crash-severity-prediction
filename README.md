@@ -28,6 +28,9 @@ number of vehicles involved, and vehicle type.
 |   |-- models/          # Trained model artefacts
 |   `-- reports/         # Metrics, tables, and evaluation summaries
 `-- src/                 # Reproducible scripts and notebooks
+    |-- notebooks/       # Jupyter Notebooks
+    |-- sql/             # SQL Create Scripts + Entity Relation Diagrams
+    `-- dbrepo/          # Scripts to connect with DBRepo    
 ```
 
 ## File organisation
