@@ -79,6 +79,18 @@ Configuration files in `config/`:
 - Local secrets or credentials must not be committed. Use environment variables
   or local files excluded by `.gitignore`.
 
+## SQL Views
+
+The views in `src/sql/04_views.sql` flatten the three raw tables 
+(collision, vehicle, casualty) into query-ready formats for the ML pipeline.
+
+| View | Purpose |
+|------|---------|
+| `v_ml_features` | Main feature table for model training – one row per casualty with all scene-condition features and the target label |
+| `v_severity_distribution` | Class distribution of casualty severity with counts and percentages |
+| `v_collision_summary` | One row per collision with aggregated severity and scene conditions |
+| `v_feature_null_check` | Null value counts for all ML feature columns |
+
 ## RO-Crate
 
 This repository includes an [RO-Crate](https://www.researchobject.org/ro-crate/) metadata file
