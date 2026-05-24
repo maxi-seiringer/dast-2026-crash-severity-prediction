@@ -1,0 +1,62 @@
+{
+  "@context": "https://w3id.org/ro/crate/1.1/context",
+  "@graph": [
+    {
+      "@type": "CreativeWork",
+      "@id": "ro-crate-metadata.json",
+      "conformsTo": {
+        "@id": "https://w3id.org/ro/crate/1.1"
+      },
+      "about": {
+        "@id": "./"
+      }
+    },
+    {
+      "@type": "Dataset",
+      "@id": "./",
+      "name": "UK Road Safety Open Data 2023",
+      "description": "Road safety and traffic collision data for Great Britain for the year 2023, originally published by the UK Department for Transport under the Open Government Licence v3.0. Covers reported accidents, involved vehicles, casualties, and associated road and environmental conditions. This relational database was created for academic purposes as part of the Data Stewardship course at TU Wien (Group 6, 2026).",
+      "datePublished": "2026-01-01",
+      "license":     {
+        "@type": "CreativeWork",
+        "@id": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+        "name": "Open Government Licence v3.0",
+        "identifier": "OGL-UK-3.0"
+      },
+      "author": [
+        {
+          "@id": "#Department for Transport, United Kingdom"
+        }
+      ],
+      "publisher": {
+        "@id": "#Department for Transport, United Kingdom"
+      },
+      "funder": {
+        "@id": "#Department for Transport, United Kingdom"
+      },
+      "hasPart": [
+        {
+          "@id": "data/raw/accidents_2023.csv"
+        },
+        {
+          "@id": "data/raw/vehicles_2023.csv"
+        },
+        {
+          "@id": "data/raw/casualties_2023.csv"
+        }
+      ],
+      "isBasedOn": {
+        "@id": "https://www.gov.uk/government/statistical-data-sets/road-safety-open-data"
+      },
+      "keywords": [
+        "road safety",
+        "traffic collisions",
+        "Great Britain",
+        "open data",
+        "data stewardship"
+      ]
+    },
+
+
+
+    }

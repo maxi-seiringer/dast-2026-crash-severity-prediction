@@ -22,7 +22,8 @@ number of vehicles involved, and vehicle type.
 |   `-- processed/       # Final analysis-ready datasets
 |-- docs/                # Assignment material, use-case notes, and project docs
 |   |-- reference/       # Assignment/reference documents
-|   `-- use-case/        # Selected use-case description
+|   |-- use-case/        # Selected use-case description
+|   `-- validation/      # Validations from various tools for project artefacts
 |-- outputs/             # Generated experiment outputs
 |   |-- figures/         # Plots and visual diagnostics
 |   |-- models/          # Trained model artefacts
@@ -77,6 +78,12 @@ Configuration files in `config/`:
   example `config-random-forest-v1.yaml`.
 - Local secrets or credentials must not be committed. Use environment variables
   or local files excluded by `.gitignore`.
+
+## RO-Crate
+
+This repository includes an [RO-Crate](https://www.researchobject.org/ro-crate/) metadata file
+(`ro-crate-metadata.json`) describing all datasets, code, authors, licences, and relationships
+in this experiment package. Validation output is in [`docs/validation/`](docs/validation/).
 
 ## References
 
