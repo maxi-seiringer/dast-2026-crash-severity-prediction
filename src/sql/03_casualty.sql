@@ -46,4 +46,4 @@ CREATE TABLE IF NOT EXISTS casualty (
 
     FOREIGN KEY (collision_index)
         REFERENCES collision(collision_index)
-)
+);
