@@ -90,6 +90,18 @@ The views in `src/sql/04_views.sql` flatten the three raw tables
 | `v_collision_summary` | One row per collision with aggregated severity and scene conditions |
 | `v_feature_null_check` | Null value counts for all ML feature columns |
 
+## Pipeline
+
+**`01-load-merge.py`** – Loads the three raw STATS19 CSV files and merges them into one table.
+
+**`02-explore.ipynb`** – Explores the data and saves one histogram per feature as a PNG file.
+
+**`03-prepare-features.py`** – Cleans the data and splits it into train, validation, and test sets.
+
+**`04-train.py`** – Trains a Random Forest Classifier and saves the model as a .pkl file.
+
+**`05-evaluate.py`** – Runs the model on the test set and saves the confusion matrix, feature importance chart, and classification report.
+
 ## References
 
 - Assignment: `docs/reference/2026-dast-exercise-part3-assignment.pdf`
