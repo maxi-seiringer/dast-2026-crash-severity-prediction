@@ -10,6 +10,13 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
+from dotenv import load_dotenv
+import sys
+# Ensure `src/` is importable when running this script from the repo root
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "src"))
+from utils.dbrepo import DBRepoClient, DBRepoError
+
+load_dotenv()
 
 # --- Paths ---
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -25,9 +32,19 @@ FEATURE_COLS = [
 ]
 TARGET_COL = "casualty_severity"
 
-# --- Load the merged interim file ---
-df = pd.read_csv(INTERIM / "stats19-collision-vehicle-casualty-2023-interim-v1.csv", low_memory=False)
-print(f"Loaded {len(df):,} rows")
+def load_merged_from_api():
+    client = DBRepoClient()
+    view_candidates = ["v_ml_features", "v_ml_merged", "ml_features", "v_features"]
+    view = client.find_first_existing_view(view_candidates)
+    if not view:
+        raise DBRepoError(f"None of the candidate views found: {view_candidates}")
+    df = client.get_view(view)
+    print(f"Fetched {len(df):,} rows from view '{view}'")
+    return df
+
+
+# --- Load the merged interim data from DBRepo view ---
+df = load_merged_from_api()
 
 # --- Derive hour of day from the time column (format HH:MM) ---
 df["hour_of_day"] = pd.to_datetime(df["time"], format="%H:%M", errors="coerce").dt.hour

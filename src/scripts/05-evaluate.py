@@ -12,6 +12,12 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import joblib
 from sklearn.metrics import classification_report, confusion_matrix, ConfusionMatrixDisplay
+from dotenv import load_dotenv
+import sys
+sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "src"))
+from utils.dbrepo import DBRepoClient, DBRepoError
+
+load_dotenv()
 
 # --- Paths ---
 REPO_ROOT      = Path(__file__).resolve().parents[2]
@@ -29,10 +35,14 @@ SEVERITY_MAP = {1: "Fatal", 2: "Serious", 3: "Slight"}
 # --- Load the trained model ---
 rf = joblib.load(OUTPUTS_MODEL / "model-random-forest-severity-2023-v1.pkl")
 
-# --- Load the test split ---
-df_test  = pd.read_csv(PROCESSED / "stats19-features-test-2023-processed-v1.csv")
-X_test   = df_test.drop(columns=[TARGET_COL])
-y_test   = df_test[TARGET_COL].astype(int)
+client = DBRepoClient()
+test_candidates = ["v_features_test", "v_ml_features_test", "ml_features_test", "features_test"]
+view = client.find_first_existing_view(test_candidates)
+if not view:
+    raise DBRepoError(f"No test split view found among candidates: {test_candidates}")
+df_test = client.get_view(view)
+X_test = df_test.drop(columns=[TARGET_COL])
+y_test = df_test[TARGET_COL].astype(int)
 y_pred   = rf.predict(X_test)
 print(f"Test rows: {len(X_test):,}")
 
