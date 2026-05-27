@@ -113,3 +113,18 @@ in this experiment package. Validation output is in [`docs/validation/`](docs/va
 
 - Assignment: `docs/reference/2026-dast-exercise-part3-assignment.pdf`
 - Selected use case: `docs/use-case/12226609-use-case-description.pdf`
+
+## License
+
+This project applies different licenses to its distinct components to align with Open Science best practices and ensure maximum reusability:
+
+* **Input Data:** The raw STATS19 UK Road Safety data is subject to the [Open Government Licence v3.0 (OGL-UK-3.0)](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/). 
+  * **What it allows:** You are free to copy, publish, distribute, transmit, and adapt the data for commercial and non-commercial purposes.
+
+* **Source Code:** All Python scripts, Jupyter notebooks, and SQL code provided in the `src/` directory are licensed under the [MIT License](https://opensource.org/licenses/MIT).
+  * **What it allows:** A highly permissive license that allows anyone to reuse, modify, distribute, and commercially use the code, provided the original copyright notice is included.
+  * **Justification:** The MIT License is the standard for academic and open-source software. It was chosen to maximize software interoperability, minimize legal barriers, and encourage unrestricted collaboration.
+
+* **Outputs & Models:** The derived datasets, generated figures, classification reports, and the trained Random Forest model artefacts in the `outputs/` directory are made available under the [Creative Commons Attribution 4.0 International License (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/).
+  * **What it allows:** You are free to share (copy and redistribute) and adapt (remix, transform) the material for any purpose, as long as you give appropriate credit to the authors.
+  * **Justification:** CC BY 4.0 is the recommended standard for open scientific data and machine learning weights. It ensures the research outputs are fully FAIR (Findable, Accessible, Interoperable, Reusable) while guaranteeing proper academic attribution for the creators.
