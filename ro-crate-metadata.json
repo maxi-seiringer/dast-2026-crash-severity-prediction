@@ -2,21 +2,371 @@
   "@context": "https://w3id.org/ro/crate/1.1/context",
   "@graph": [
     {
-      "@type": "CreativeWork",
       "@id": "ro-crate-metadata.json",
-      "conformsTo": {
-        "@id": "https://w3id.org/ro/crate/1.1"
-      },
+      "@type": "CreativeWork",
       "about": {
         "@id": "./"
+      },
+      "conformsTo": {
+        "@id": "https://w3id.org/ro/crate/1.1"
       }
+    },
+
+    {
+      "@id": "./",
+      "@type": "Experiment",
+      "name": "STATS19 Road Accident Severity ML Experiment",
+      "description": "Machine learning experiment for predicting road accident severity using STATS19 data.",
+      "license": {
+        "@id": "https://opensource.org/licenses/MIT"
+      },
+      "creator": [
+        {
+          "@id": "#author-a"
+        },
+        {
+          "@id": "#author-b"
+        },
+        {
+          "@id": "#author-c"
+        },
+        {
+          "@id": "#author-d"
+        }
+      ],
+      "hasPart": [
+        {
+          "@id": "01-load-merge.py"
+        },
+        {
+          "@id": "02-explore.ipynb"
+        },
+        {
+          "@id": "03-prepare-features.py"
+        },
+        {
+          "@id": "04-train.py"
+        },
+        {
+          "@id": "05-evaluate.py"
+        },
+        {
+          "@id": "data/raw/collision.csv"
+        },
+        {
+          "@id": "data/raw/vehicles.csv"
+        },
+        {
+          "@id": "data/raw/casualty.csv"
+        },
+        {
+          "@id": "data/processed/merged.csv"
+        },
+        {
+          "@id": "data/processed/train.csv"
+        },
+        {
+          "@id": "data/processed/validation.csv"
+        },
+        {
+          "@id": "data/processed/test.csv"
+        },
+        {
+          "@id": "models/random_forest.pkl"
+        },
+        {
+          "@id": "outputs/confusion_matrix.png"
+        },
+        {
+          "@id": "outputs/feature_importance.png"
+        },
+        {
+          "@id": "outputs/classification_report.txt"
+        }
+      ],
+      "isBasedOn": [
+        {
+          "@id": "dataset"
+        }
+      ]
+    },
+
+    {
+      "@id": "#author-a",
+      "@type": "Person",
+      "name": "Sebastian Schnitzer",
+      "affiliation": {
+        "@id": "#org"
+      },
+      "orcid": "https://orcid.org/0009-0009-5014-2131"
+    },
+    {
+      "@id": "#author-b",
+      "@type": "Person",
+      "name": "Maxime Philippon",
+      "affiliation": {
+        "@id": "#org"
+      },
+      "orcid": "https://orcid.org/YOUR-ORCID"
+    },
+    {
+      "@id": "#author-c",
+      "@type": "Person",
+      "name": "Maximillian Seiringer",
+      "affiliation": {
+        "@id": "#org"
+      },
+      "orcid": "https://orcid.org/YOUR-ORCID"
+    },
+    {
+      "@id": "#author-d",
+      "@type": "Person",
+      "name": "Anton Windsperger",
+      "affiliation": {
+        "@id": "#org"
+      },
+      "orcid": "https://orcid.org/YOUR-ORCID"
+    },
+
+    {
+      "@id": "#org",
+      "@type": "Organization",
+      "name": "TU Wien"
+    },
+
+    {
+      "@id": "https://opensource.org/licenses/MIT",
+      "@type": "CreativeWork",
+      "name": "MIT License"
+    },
+
+    {
+      "@id": "data/raw/collision.csv",
+      "@type": "File",
+      "name": "STATS19 Collision Dataset",
+      "encodingFormat": "text/csv",
+      "description": "Raw collision table from STATS19 2023.",
+      "license": {
+        "@id": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+      }
+    },
+
+    {
+      "@id": "data/raw/vehicles.csv",
+      "@type": "File",
+      "name": "STATS19 Vehicles Dataset",
+      "encodingFormat": "text/csv",
+      "description": "Raw vehicles table from STATS19 2023.",
+      "license": {
+        "@id": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+      }
+    },
+
+    {
+      "@id": "data/raw/casualty.csv",
+      "@type": "File",
+      "name": "STATS19 Casualties Dataset",
+      "encodingFormat": "text/csv",
+      "description": "Raw casualties table from STATS19 2023.",
+      "license": {
+        "@id": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+      }
+    },
+
+    {
+      "@id": "data/processed/merged.csv",
+      "@type": "File",
+      "name": "Merged Dataset",
+      "encodingFormat": "text/csv"
+    },
+
+    {
+      "@id": "data/processed/train.csv",
+      "@type": "File",
+      "name": "Training Dataset",
+      "encodingFormat": "text/csv"
+    },
+
+    {
+      "@id": "data/processed/validation.csv",
+      "@type": "File",
+      "name": "Validation Dataset",
+      "encodingFormat": "text/csv"
+    },
+
+    {
+      "@id": "data/processed/test.csv",
+      "@type": "File",
+      "name": "Test Dataset",
+      "encodingFormat": "text/csv"
+    },
+
+    {
+      "@id": "01-load-merge.py",
+      "@type": [
+        "File",
+        "SoftwareSourceCode"
+      ],
+      "name": "Load and Merge Pipeline Step",
+      "programmingLanguage": {
+        "@id": "https://www.python.org/"
+      },
+      "description": "This experiment predicts the severity of road traffic accidents by classifying them into Slight, Serious, or Fatal categories. The classification is based on conditions typically known at the time of an emergency call, with the aim of supporting dispatch centres in determining the appropriate emergency response, such as police, ambulance, or trauma teams. The data originates from the UK Road Safety Open Data (STATS19) for 2023, published by the UK Department for Transport under the Open Government Licence. The dataset consists of three linked CSV files containing collision, vehicle, and casualty information connected through a shared collision ID. Features used for prediction include road type, speed limit, weather conditions, lighting conditions, road surface conditions, time of day, day of the week, number of vehicles involved, and vehicle type. A Random Forest Classifier is trained using a 70/15/15 split for training, validation, and testing. The experiment produces histogram plots for feature exploration, feature importance visualisations, a confusion matrix, a classification report including precision, recall and F1-score metrics, predicted versus actual labels for the test set, and a serialized Random Forest model file.",      "input": [
+        {
+          "@id": "data/raw/collision.csv"
+        },
+        {
+          "@id": "data/raw/vehicles.csv"
+        },
+        {
+          "@id": "data/raw/casualty.csv"
+        }
+      ],
+      "output": {
+        "@id": "data/processed/merged.csv"
+      }
+    },
+
+    {
+      "@id": "02-explore.ipynb",
+      "@type": [
+        "File",
+        "SoftwareSourceCode"
+      ],
+      "name": "Exploratory Data Analysis Notebook",
+      "programmingLanguage": {
+        "@id": "https://jupyter.org/"
+      },
+      "description": "Explores the merged dataset and saves histograms.",
+      "input": {
+        "@id": "data/processed/merged.csv"
+      },
+      "output": {
+        "@id": "outputs/histograms/"
+      }
+    },
+
+    {
+      "@id": "03-prepare-features.py",
+      "@type": [
+        "File",
+        "SoftwareSourceCode"
+      ],
+      "name": "Feature Preparation Step",
+      "programmingLanguage": {
+        "@id": "https://www.python.org/"
+      },
+      "description": "Cleans data and splits into train, validation, and test sets.",
+      "input": {
+        "@id": "data/processed/merged.csv"
+      },
+      "output": [
+        {
+          "@id": "data/processed/train.csv"
+        },
+        {
+          "@id": "data/processed/validation.csv"
+        },
+        {
+          "@id": "data/processed/test.csv"
+        }
+      ]
+    },
+
+    {
+      "@id": "04-train.py",
+      "@type": [
+        "File",
+        "SoftwareSourceCode"
+      ],
+      "name": "Random Forest Training Step",
+      "programmingLanguage": {
+        "@id": "https://www.python.org/"
+      },
+      "description": "Trains a Random Forest classifier.",
+      "input": [
+        {
+          "@id": "data/processed/train.csv"
+        },
+        {
+          "@id": "data/processed/validation.csv"
+        }
+      ],
+      "output": {
+        "@id": "models/random_forest.pkl"
+      }
+    },
+
+    {
+      "@id": "models/random_forest.pkl",
+      "@type": [
+        "File",
+        "SoftwareApplication"
+      ],
+      "name": "Random Forest Model",
+      "encodingFormat": "application/octet-stream",
+      "identifier": "https://doi.org/YOUR_TUWRD_MODEL_DOI"
+    },
+
+    {
+      "@id": "05-evaluate.py",
+      "@type": [
+        "File",
+        "SoftwareSourceCode"
+      ],
+      "name": "Evaluation Step",
+      "programmingLanguage": {
+        "@id": "https://www.python.org/"
+      },
+      "description": "Evaluates the trained model on the test set.",
+      "input": [
+        {
+          "@id": "models/random_forest.pkl"
+        },
+        {
+          "@id": "data/processed/test.csv"
+        }
+      ],
+      "output": [
+        {
+          "@id": "outputs/confusion_matrix.png"
+        },
+        {
+          "@id": "outputs/feature_importance.png"
+        },
+        {
+          "@id": "outputs/classification_report.txt"
+        }
+      ]
+    },
+
+    {
+      "@id": "outputs/confusion_matrix.png",
+      "@type": "File",
+      "name": "Confusion Matrix",
+      "encodingFormat": "image/png",
+      "identifier": "https://doi.org/YOUR_TUWRD_OUTPUT_DOI"
+    },
+
+    {
+      "@id": "outputs/feature_importance.png",
+      "@type": "File",
+      "name": "Feature Importance Plot",
+      "encodingFormat": "image/png"
+    },
+
+    {
+      "@id": "outputs/classification_report.txt",
+      "@type": "File",
+      "name": "Classification Report",
+      "encodingFormat": "text/plain"
     },
     {
       "@type": "Dataset",
-      "@id": "./",
+      "@id": "dataset",
       "name": "UK Road Safety Open Data 2023",
-      "description": "Road safety and traffic collision data for Great Britain for the year 2023, originally published by the UK Department for Transport under the Open Government Licence v3.0. Covers reported accidents, involved vehicles, casualties, and associated road and environmental conditions. This relational database was created for academic purposes as part of the Data Stewardship course at TU Wien (Group 6, 2026).",
-      "datePublished": "2026-01-01",
+      "description": "Road safety and traffic collision data for Great Britain for the year 2023, originally published by the UK Department for Transport under the Open Government Licence v3.0. Covers reported accidents, involved vehicles, casualties, and associated road and environmental conditions.",
+      "yearPublished": "2023",
       "license":     {
         "@type": "CreativeWork",
         "@id": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
@@ -36,13 +386,13 @@
       },
       "hasPart": [
         {
-          "@id": "data/raw/accidents_2023.csv"
+          "@id": "data/raw/casualty.csv"
         },
         {
-          "@id": "data/raw/vehicles_2023.csv"
+          "@id": "data/raw/vehicles.csv"
         },
         {
-          "@id": "data/raw/casualties_2023.csv"
+          "@id": "data/raw/collision.csv"
         }
       ],
       "isBasedOn": {
@@ -55,8 +405,7 @@
         "open data",
         "data stewardship"
       ]
-    },
-
-
-
     }
+  ]
+}
+
