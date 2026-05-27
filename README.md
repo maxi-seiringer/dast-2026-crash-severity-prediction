@@ -97,6 +97,18 @@ This repository includes an [RO-Crate](https://www.researchobject.org/ro-crate/)
 (`ro-crate-metadata.json`) describing all datasets, code, authors, licences, and relationships
 in this experiment package. Validation output is in [`docs/validation/`](docs/validation/).
 
+## Pipeline
+
+**`01-load-merge.py`** – Loads the three raw STATS19 CSV files and merges them into one table.
+
+**`02-explore.ipynb`** – Explores the data and saves one histogram per feature as a PNG file.
+
+**`03-prepare-features.py`** – Cleans the data and splits it into train, validation, and test sets.
+
+**`04-train.py`** – Trains a Random Forest Classifier and saves the model as a .pkl file.
+
+**`05-evaluate.py`** – Runs the model on the test set and saves the confusion matrix, feature importance chart, and classification report.
+
 ## References
 
 - Assignment: `docs/reference/2026-dast-exercise-part3-assignment.pdf`
