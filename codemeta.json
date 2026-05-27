@@ -1,0 +1,52 @@
+{
+  "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
+  "@type": "SoftwareSourceCode",
+  "name": "Crash Severity Prediction for Emergency Dispatch",
+  "description": "Data Stewardship 2026 Part 3 experiment setup for predicting road collision severity from scene conditions. Uses a Random Forest classifier based on 2023 UK Road Safety Open Data (STATS19).",
+  "version": "1.0.0",
+  "applicationCategory": "Machine Learning",
+  "codeRepository": "https://github.com/maxi-seiringer/dast-2026-crash-severity-prediction",
+  "issueTracker": "https://github.com/maxi-seiringer/dast-2026-crash-severity-prediction/issues",
+  "license": "https://spdx.org/licenses/MIT",
+  "programmingLanguage": [
+    "Python 3",
+    "SQL"
+  ],
+  "author": [
+    {
+      "@type": "Person",
+      "givenName": "Sebastian",
+      "familyName": "Schnitzer",
+      "@id": "https://orcid.org/0009-0009-5014-2131"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Maxime",
+      "familyName": "Philippon",
+      "@id": "https://orcid.org/0009-0003-2394-5285"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Maximilian",
+      "familyName": "Seiringer",
+      "@id": "https://orcid.org/0009-0008-4198-6693"
+    },
+    {
+      "@type": "Person",
+      "givenName": "Anton",
+      "familyName": "Windsperger",
+      "@id": "https://orcid.org/0009-0008-9353-7427"
+    }
+  ],
+  "softwareRequirements": [
+    "pandas==3.0.3",
+    "requests==2.34.2",
+    "numpy==2.4.6",
+    "scikit-learn==1.8.0",
+    "joblib==1.5.3",
+    "matplotlib==3.10.9",
+    "seaborn==0.13.2",
+    "python-dotenv==1.2.2",
+    "dbrepo==1.13.5"
+  ]
+}
