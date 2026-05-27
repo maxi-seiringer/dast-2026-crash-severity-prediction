@@ -4,128 +4,83 @@
     {
       "@id": "ro-crate-metadata.json",
       "@type": "CreativeWork",
-      "about": {
-        "@id": "./"
-      },
-      "conformsTo": {
-        "@id": "https://w3id.org/ro/crate/1.1"
-      }
+      "about": { "@id": "./" },
+      "conformsTo": { "@id": "https://w3id.org/ro/crate/1.1" }
     },
 
     {
       "@id": "./",
-      "@type": "Experiment",
+      "@type": ["Dataset", "Experiment"],
       "name": "STATS19 Road Accident Severity ML Experiment",
       "description": "Machine learning experiment for predicting road accident severity using STATS19 data.",
-      "license": {
-        "@id": "https://opensource.org/licenses/MIT"
-      },
+      "license": { "@id": "https://opensource.org/licenses/MIT" },
+      "datePublished": "2026-05-27",
       "creator": [
-        {
-          "@id": "#author-a"
-        },
-        {
-          "@id": "#author-b"
-        },
-        {
-          "@id": "#author-c"
-        },
-        {
-          "@id": "#author-d"
-        }
+        { "@id": "#author-a" },
+        { "@id": "#author-b" },
+        { "@id": "#author-c" },
+        { "@id": "#author-d" }
       ],
       "hasPart": [
-        {
-          "@id": "01-load-merge.py"
-        },
-        {
-          "@id": "02-explore.ipynb"
-        },
-        {
-          "@id": "03-prepare-features.py"
-        },
-        {
-          "@id": "04-train.py"
-        },
-        {
-          "@id": "05-evaluate.py"
-        },
-        {
-          "@id": "data/raw/collision.csv"
-        },
-        {
-          "@id": "data/raw/vehicles.csv"
-        },
-        {
-          "@id": "data/raw/casualty.csv"
-        },
-        {
-          "@id": "data/processed/merged.csv"
-        },
-        {
-          "@id": "data/processed/train.csv"
-        },
-        {
-          "@id": "data/processed/validation.csv"
-        },
-        {
-          "@id": "data/processed/test.csv"
-        },
-        {
-          "@id": "models/random_forest.pkl"
-        },
-        {
-          "@id": "outputs/confusion_matrix.png"
-        },
-        {
-          "@id": "outputs/feature_importance.png"
-        },
-        {
-          "@id": "outputs/classification_report.txt"
-        }
+        { "@id": "src/scripts/01-load-merge.py" },
+        { "@id": "src/notebooks/02-explore.ipynb" },
+        { "@id": "src/scripts/03-prepare-features.py" },
+        { "@id": "src/scripts/04-train.py" },
+        { "@id": "src/scripts/05-evaluate.py" },
+        { "@id": "data/raw/stats19-collision-2023-raw-v1.csv" },
+        { "@id": "data/raw/stats19-vehicle-2023-raw-v1.csv" },
+        { "@id": "data/raw/stats19-casualty-2023-raw-v1.csv" },
+        { "@id": "data/interim/stats19-collision-vehicle-casualty-2023-interim-v1.csv" },
+        { "@id": "data/processed/stats19-features-test-2023-processed-v1.csv" },
+        { "@id": "data/processed/stats19-features-train-2023-processed-v1.csv" },
+        { "@id": "data/processed/stats19-features-val-2023-processed-v1.csv" },
+        { "@id": "outputs/models/model-random-forest-severity-2023-v1.pkl" },
+        { "@id": "outputs/figures/fig-confusion-matrix-2023-v1.png" },
+        { "@id": "outputs/figures/fig-feature-importance-2023-v1.png" },
+        { "@id": "outputs/reports/report-classification-metrics-2023-v1.csv" },
+        { "@id": "outputs/reports/report-predictions-test-2023-v1.csv"},
+        { "@id": "https://www.gov.uk/government/statistical-data-sets/road-safety-open-data" },
+        { "@id": "outputs/figures/" },
+        { "@id": "outputs/figures/fig-hist-day_of_week-2023-v1.png" },
+        { "@id": "outputs/figures/fig-hist-light_conditions-2023-v1.png" },
+        { "@id": "outputs/figures/fig-hist-number_of_vehicles-2023-v1.png" },
+        { "@id": "outputs/figures/fig-hist-road_surface_conditions-2023-v1.png" },
+        { "@id": "outputs/figures/fig-hist-road_type-2023-v1.png" },
+        { "@id": "outputs/figures/fig-hist-speed_limit-2023-v1.png" },
+        { "@id": "outputs/figures/fig-hist-vehicle_type-2023-v1.png" },
+        { "@id": "outputs/figures/fig-hist-weather_conditions-2023-v1.png" },
+        { "@id": "outputs/figures/fig-severity-distribution-2023-v1.png" }
       ],
-      "isBasedOn": [
-        {
-          "@id": "dataset"
-        }
-      ]
+      "isBasedOn": [ { "@id": "https://www.gov.uk/government/statistical-data-sets/road-safety-open-data" } ]
     },
 
     {
       "@id": "#author-a",
       "@type": "Person",
       "name": "Sebastian Schnitzer",
-      "affiliation": {
-        "@id": "#org"
-      },
-      "orcid": "https://orcid.org/0009-0009-5014-2131"
+      "affiliation": { "@id": "#org" },
+      "identifier": "https://orcid.org/0009-0009-5014-2131"
     },
     {
       "@id": "#author-b",
       "@type": "Person",
       "name": "Maxime Philippon",
-      "affiliation": {
-        "@id": "#org"
-      },
-      "orcid": "https://orcid.org/YOUR-ORCID"
+      "affiliation": { "@id": "#org" },
+      "identifier": "https://orcid.org/0009-0003-2394-5285"
     },
     {
       "@id": "#author-c",
       "@type": "Person",
       "name": "Maximillian Seiringer",
-      "affiliation": {
-        "@id": "#org"
-      },
-      "orcid": "https://orcid.org/YOUR-ORCID"
+      "affiliation": { "@id": "#org" },
+      "identifier": "https://orcid.org/0009-0008-4198-6693"
     },
     {
       "@id": "#author-d",
       "@type": "Person",
       "name": "Anton Windsperger",
-      "affiliation": {
-        "@id": "#org"
-      },
-      "orcid": "https://orcid.org/YOUR-ORCID"
+      "affiliation": { "@id": "#org" },
+      "identifier": "https://orcid.org/0009-0008-9353-7427"
     },
 
     {
@@ -141,271 +96,176 @@
     },
 
     {
-      "@id": "data/raw/collision.csv",
+      "@id": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+      "@type": "CreativeWork",
+      "name": "Open Government Licence v3.0",
+      "identifier": "OGL-UK-3.0"
+    },
+
+    {
+      "@id": "data/raw/stats19-collision-2023-raw-v1.csv",
       "@type": "File",
       "name": "STATS19 Collision Dataset",
       "encodingFormat": "text/csv",
       "description": "Raw collision table from STATS19 2023.",
-      "license": {
-        "@id": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
-      }
+      "license": { "@id": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" }
     },
 
     {
-      "@id": "data/raw/vehicles.csv",
+      "@id": "data/raw/stats19-vehicle-2023-raw-v1.csv",
       "@type": "File",
       "name": "STATS19 Vehicles Dataset",
       "encodingFormat": "text/csv",
       "description": "Raw vehicles table from STATS19 2023.",
-      "license": {
-        "@id": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
-      }
+      "license": { "@id": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" }
     },
 
     {
-      "@id": "data/raw/casualty.csv",
+      "@id": "data/raw/stats19-casualty-2023-raw-v1.csv",
       "@type": "File",
       "name": "STATS19 Casualties Dataset",
       "encodingFormat": "text/csv",
       "description": "Raw casualties table from STATS19 2023.",
-      "license": {
-        "@id": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
-      }
+      "license": { "@id": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" }
     },
 
-    {
-      "@id": "data/processed/merged.csv",
-      "@type": "File",
-      "name": "Merged Dataset",
-      "encodingFormat": "text/csv"
-    },
+    { "@id": "data/interim/stats19-collision-vehicle-casualty-2023-interim-v1.csv", "@type": "File", "name": "Merged Dataset", "encodingFormat": "text/csv" },
+    { "@id": "data/processed/stats19-features-train-2023-processed-v1.csv", "@type": "File", "name": "Training Dataset", "encodingFormat": "text/csv" },
+    { "@id": "data/processed/stats19-features-val-2023-processed-v1.csv", "@type": "File", "name": "Validation Dataset", "encodingFormat": "text/csv" },
+    { "@id": "data/processed/stats19-features-test-2023-processed-v1.csv", "@type": "File", "name": "Test Dataset", "encodingFormat": "text/csv" },
 
     {
-      "@id": "data/processed/train.csv",
-      "@type": "File",
-      "name": "Training Dataset",
-      "encodingFormat": "text/csv"
-    },
-
-    {
-      "@id": "data/processed/validation.csv",
-      "@type": "File",
-      "name": "Validation Dataset",
-      "encodingFormat": "text/csv"
-    },
-
-    {
-      "@id": "data/processed/test.csv",
-      "@type": "File",
-      "name": "Test Dataset",
-      "encodingFormat": "text/csv"
-    },
-
-    {
-      "@id": "01-load-merge.py",
-      "@type": [
-        "File",
-        "SoftwareSourceCode"
-      ],
+      "@id": "src/scripts/01-load-merge.py",
+      "@type": ["File", "SoftwareSourceCode"],
       "name": "Load and Merge Pipeline Step",
-      "programmingLanguage": {
-        "@id": "https://www.python.org/"
-      },
-      "description": "This experiment predicts the severity of road traffic accidents by classifying them into Slight, Serious, or Fatal categories. The classification is based on conditions typically known at the time of an emergency call, with the aim of supporting dispatch centres in determining the appropriate emergency response, such as police, ambulance, or trauma teams. The data originates from the UK Road Safety Open Data (STATS19) for 2023, published by the UK Department for Transport under the Open Government Licence. The dataset consists of three linked CSV files containing collision, vehicle, and casualty information connected through a shared collision ID. Features used for prediction include road type, speed limit, weather conditions, lighting conditions, road surface conditions, time of day, day of the week, number of vehicles involved, and vehicle type. A Random Forest Classifier is trained using a 70/15/15 split for training, validation, and testing. The experiment produces histogram plots for feature exploration, feature importance visualisations, a confusion matrix, a classification report including precision, recall and F1-score metrics, predicted versus actual labels for the test set, and a serialized Random Forest model file.",      "input": [
-        {
-          "@id": "data/raw/collision.csv"
-        },
-        {
-          "@id": "data/raw/vehicles.csv"
-        },
-        {
-          "@id": "data/raw/casualty.csv"
-        }
+      "programmingLanguage": { "@id": "https://www.python.org/" },
+      "description": "This experiment predicts the severity of road traffic accidents...",
+      "input": [
+        { "@id": "data/raw/stats19-vehicle-2023-raw-v1.csv" },
+        { "@id": "data/raw/stats19-collision-2023-raw-v1.csv" },
+        { "@id": "data/raw/stats19-casualty-2023-raw-v1.csv" }
       ],
-      "output": {
-        "@id": "data/processed/merged.csv"
-      }
+      "output": { "@id": "data/interim/stats19-collision-vehicle-casualty-2023-interim-v1.csv" }
     },
 
     {
-      "@id": "02-explore.ipynb",
-      "@type": [
-        "File",
-        "SoftwareSourceCode"
-      ],
+      "@id": "src/notebooks/02-explore.ipynb",
+      "@type": ["File", "SoftwareSourceCode"],
       "name": "Exploratory Data Analysis Notebook",
-      "programmingLanguage": {
-        "@id": "https://jupyter.org/"
-      },
+      "programmingLanguage": { "@id": "https://jupyter.org/" },
       "description": "Explores the merged dataset and saves histograms.",
-      "input": {
-        "@id": "data/processed/merged.csv"
-      },
-      "output": {
-        "@id": "outputs/histograms/"
-      }
+      "input": { "@id": "data/interim/stats19-collision-vehicle-casualty-2023-interim-v1.csv" },
+      "output": { "@id": "outputs/figures/" }
     },
 
     {
-      "@id": "03-prepare-features.py",
-      "@type": [
-        "File",
-        "SoftwareSourceCode"
-      ],
+      "@id": "src/scripts/03-prepare-features.py",
+      "@type": ["File", "SoftwareSourceCode"],
       "name": "Feature Preparation Step",
-      "programmingLanguage": {
-        "@id": "https://www.python.org/"
-      },
+      "programmingLanguage": { "@id": "https://www.python.org/" },
       "description": "Cleans data and splits into train, validation, and test sets.",
-      "input": {
-        "@id": "data/processed/merged.csv"
-      },
+      "input": { "@id": "data/interim/stats19-collision-vehicle-casualty-2023-interim-v1.csv" },
       "output": [
-        {
-          "@id": "data/processed/train.csv"
-        },
-        {
-          "@id": "data/processed/validation.csv"
-        },
-        {
-          "@id": "data/processed/test.csv"
-        }
+        { "@id": "data/processed/stats19-features-test-2023-processed-v1.csv" },
+        { "@id": "data/processed/stats19-features-train-2023-processed-v1.csv" },
+        { "@id": "data/processed/stats19-features-val-2023-processed-v1.csv" }
       ]
     },
 
     {
-      "@id": "04-train.py",
-      "@type": [
-        "File",
-        "SoftwareSourceCode"
-      ],
+      "@id": "src/scripts/04-train.py",
+      "@type": ["File", "SoftwareSourceCode"],
       "name": "Random Forest Training Step",
-      "programmingLanguage": {
-        "@id": "https://www.python.org/"
-      },
+      "programmingLanguage": { "@id": "https://www.python.org/" },
       "description": "Trains a Random Forest classifier.",
       "input": [
-        {
-          "@id": "data/processed/train.csv"
-        },
-        {
-          "@id": "data/processed/validation.csv"
-        }
+        { "@id": "data/processed/stats19-features-train-2023-processed-v1.csv" },
+        { "@id": "data/processed/stats19-features-val-2023-processed-v1.csv" }
       ],
-      "output": {
-        "@id": "models/random_forest.pkl"
-      }
+      "output": { "@id": "outputs/models/model-random-forest-severity-2023-v1.pkl" }
     },
 
     {
-      "@id": "models/random_forest.pkl",
-      "@type": [
-        "File",
-        "SoftwareApplication"
-      ],
+      "@id": "outputs/models/model-random-forest-severity-2023-v1.pkl",
+      "@type": ["File", "SoftwareApplication"],
       "name": "Random Forest Model",
       "encodingFormat": "application/octet-stream",
       "identifier": "https://doi.org/YOUR_TUWRD_MODEL_DOI"
     },
 
     {
-      "@id": "05-evaluate.py",
-      "@type": [
-        "File",
-        "SoftwareSourceCode"
-      ],
+      "@id": "src/scripts/05-evaluate.py",
+      "@type": ["File", "SoftwareSourceCode"],
       "name": "Evaluation Step",
-      "programmingLanguage": {
-        "@id": "https://www.python.org/"
-      },
+      "programmingLanguage": { "@id": "https://www.python.org/" },
       "description": "Evaluates the trained model on the test set.",
       "input": [
-        {
-          "@id": "models/random_forest.pkl"
-        },
-        {
-          "@id": "data/processed/test.csv"
-        }
+        { "@id": "outputs/models/model-random-forest-severity-2023-v1.pkl" },
+        { "@id": "data/processed/stats19-features-test-2023-processed-v1.csv" }
       ],
       "output": [
-        {
-          "@id": "outputs/confusion_matrix.png"
-        },
-        {
-          "@id": "outputs/feature_importance.png"
-        },
-        {
-          "@id": "outputs/classification_report.txt"
-        }
+        { "@id": "outputs/figures/fig-confusion-matrix-2023-v1.png" },
+        { "@id": "outputs/figures/fig-feature-importance-2023-v1.png" },
+        { "@id": "outputs/reports/report-classification-metrics-2023-v1.csv"},
+        { "@id": "outputs/reports/report-predictions-test-2023-v1.csv"}
       ]
     },
 
-    {
-      "@id": "outputs/confusion_matrix.png",
-      "@type": "File",
-      "name": "Confusion Matrix",
-      "encodingFormat": "image/png",
-      "identifier": "https://doi.org/YOUR_TUWRD_OUTPUT_DOI"
-    },
+    { "@id": "outputs/figures/fig-confusion-matrix-2023-v1.png", "@type": "File", "name": "Confusion Matrix", "encodingFormat": "image/png", "identifier": "https://doi.org/YOUR_TUWRD_OUTPUT_DOI" },
+    { "@id": "outputs/figures/fig-feature-importance-2023-v1.png", "@type": "File", "name": "Feature Importance Plot", "encodingFormat": "image/png" },
+    { "@id": "outputs/reports/report-classification-metrics-2023-v1.csv", "@type": "File", "name": "Classification Report", "encodingFormat": "text/plain" },
+    { "@id": "outputs/reports/report-predictions-test-2023-v1.csv", "@type": "File", "name": "Predictions Report", "encodingFormat": "text/plain" },
+
 
     {
-      "@id": "outputs/feature_importance.png",
-      "@type": "File",
-      "name": "Feature Importance Plot",
-      "encodingFormat": "image/png"
-    },
-
-    {
-      "@id": "outputs/classification_report.txt",
-      "@type": "File",
-      "name": "Classification Report",
-      "encodingFormat": "text/plain"
-    },
-    {
+      "@id": "https://www.gov.uk/government/statistical-data-sets/road-safety-open-data",
       "@type": "Dataset",
-      "@id": "dataset",
       "name": "UK Road Safety Open Data 2023",
-      "description": "Road safety and traffic collision data for Great Britain for the year 2023, originally published by the UK Department for Transport under the Open Government Licence v3.0. Covers reported accidents, involved vehicles, casualties, and associated road and environmental conditions.",
-      "yearPublished": "2023",
-      "license":     {
-        "@type": "CreativeWork",
-        "@id": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
-        "name": "Open Government Licence v3.0",
-        "identifier": "OGL-UK-3.0"
-      },
-      "author": [
-        {
-          "@id": "#Department for Transport, United Kingdom"
-        }
-      ],
-      "publisher": {
-        "@id": "#Department for Transport, United Kingdom"
-      },
-      "funder": {
-        "@id": "#Department for Transport, United Kingdom"
-      },
+      "description": "Road safety and traffic collision data for Great Britain for 2023, published by the UK Department for Transport under the Open Government Licence v3.0.",
+      "datePublished": "2023",
+      "license": { "@id": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/" },
+      "author": [ { "@id": "#dept-transport" } ],
+      "publisher": { "@id": "#dept-transport" },
+      "funder": { "@id": "#dept-transport" },
       "hasPart": [
-        {
-          "@id": "data/raw/casualty.csv"
-        },
-        {
-          "@id": "data/raw/vehicles.csv"
-        },
-        {
-          "@id": "data/raw/collision.csv"
-        }
+        { "@id": "data/raw/stats19-casualty-2023-raw-v1.csv" },
+        { "@id": "data/raw/stats19-vehicle-2023-raw-v1.csv" },
+        { "@id": "data/raw/stats19-collision-2023-raw-v1.csv" }
       ],
-      "isBasedOn": {
-        "@id": "https://www.gov.uk/government/statistical-data-sets/road-safety-open-data"
-      },
-      "keywords": [
-        "road safety",
-        "traffic collisions",
-        "Great Britain",
-        "open data",
-        "data stewardship"
+      "isBasedOn": { "@id": "https://www.gov.uk/government/statistical-data-sets/road-safety-open-data" },
+      "keywords": ["road safety", "traffic collisions", "Great Britain", "open data", "data stewardship"]
+    },
+
+    {
+      "@id": "#dept-transport",
+      "@type": "Organization",
+      "name": "Department for Transport, United Kingdom"
+    },
+    {
+      "@id": "outputs/figures/",
+      "@type": "Dataset",
+      "name": "Exploratory Figures",
+      "description": "Histogram and distribution plots generated during exploratory data analysis.",
+      "hasPart": [
+        { "@id": "outputs/figures/fig-hist-day_of_week-2023-v1.png" },
+        { "@id": "outputs/figures/fig-hist-light_conditions-2023-v1.png" },
+        { "@id": "outputs/figures/fig-hist-number_of_vehicles-2023-v1.png" },
+        { "@id": "outputs/figures/fig-hist-road_surface_conditions-2023-v1.png" },
+        { "@id": "outputs/figures/fig-hist-road_type-2023-v1.png" },
+        { "@id": "outputs/figures/fig-hist-speed_limit-2023-v1.png" },
+        { "@id": "outputs/figures/fig-hist-vehicle_type-2023-v1.png" },
+        { "@id": "outputs/figures/fig-hist-weather_conditions-2023-v1.png" },
+        { "@id": "outputs/figures/fig-severity-distribution-2023-v1.png" }
       ]
-    }
+    },
+    { "@id": "outputs/figures/fig-hist-day_of_week-2023-v1.png", "@type": "File", "name": "Histogram: Day of Week", "encodingFormat": "image/png" },
+    { "@id": "outputs/figures/fig-hist-light_conditions-2023-v1.png", "@type": "File", "name": "Histogram: Light Conditions", "encodingFormat": "image/png" },
+    { "@id": "outputs/figures/fig-hist-number_of_vehicles-2023-v1.png", "@type": "File", "name": "Histogram: Number of Vehicles", "encodingFormat": "image/png" },
+    { "@id": "outputs/figures/fig-hist-road_surface_conditions-2023-v1.png", "@type": "File", "name": "Histogram: Road Surface Conditions", "encodingFormat": "image/png" },
+    { "@id": "outputs/figures/fig-hist-road_type-2023-v1.png", "@type": "File", "name": "Histogram: Road Type", "encodingFormat": "image/png" },
+    { "@id": "outputs/figures/fig-hist-speed_limit-2023-v1.png", "@type": "File", "name": "Histogram: Speed Limit", "encodingFormat": "image/png" },
+    { "@id": "outputs/figures/fig-hist-vehicle_type-2023-v1.png", "@type": "File", "name": "Histogram: Vehicle Type", "encodingFormat": "image/png" },
+    { "@id": "outputs/figures/fig-hist-weather_conditions-2023-v1.png", "@type": "File", "name": "Histogram: Weather Conditions", "encodingFormat": "image/png" },
+    { "@id": "outputs/figures/fig-severity-distribution-2023-v1.png", "@type": "File", "name": "Severity Distribution Plot", "encodingFormat": "image/png" }
   ]
 }
-
