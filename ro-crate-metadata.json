@@ -101,6 +101,12 @@
       "name": "Open Government Licence v3.0",
       "identifier": "OGL-UK-3.0"
     },
+    {
+      "@id": "https://creativecommons.org/licenses/by/4.0/",
+      "@type": "CreativeWork",
+      "name": "Creative Commons Attribution 4.0 International",
+      "identifier": "CC-BY-4.0"
+    },
 
     {
       "@id": "data/raw/stats19-collision-2023-raw-v1.csv",
@@ -140,6 +146,9 @@
       "name": "Load and Merge Pipeline Step",
       "programmingLanguage": { "@id": "https://www.python.org/" },
       "description": "This experiment predicts the severity of road traffic accidents...",
+      "license": {
+        "@id": "https://opensource.org/licenses/MIT"
+      },
       "input": [
         { "@id": "data/raw/stats19-vehicle-2023-raw-v1.csv" },
         { "@id": "data/raw/stats19-collision-2023-raw-v1.csv" },
@@ -153,6 +162,9 @@
       "@type": ["File", "SoftwareSourceCode"],
       "name": "Exploratory Data Analysis Notebook",
       "programmingLanguage": { "@id": "https://jupyter.org/" },
+      "license": {
+        "@id": "https://opensource.org/licenses/MIT"
+      },
       "description": "Explores the merged dataset and saves histograms.",
       "input": { "@id": "data/interim/stats19-collision-vehicle-casualty-2023-interim-v1.csv" },
       "output": { "@id": "outputs/figures/" }
@@ -163,6 +175,9 @@
       "@type": ["File", "SoftwareSourceCode"],
       "name": "Feature Preparation Step",
       "programmingLanguage": { "@id": "https://www.python.org/" },
+      "license": {
+        "@id": "https://opensource.org/licenses/MIT"
+      },
       "description": "Cleans data and splits into train, validation, and test sets.",
       "input": { "@id": "data/interim/stats19-collision-vehicle-casualty-2023-interim-v1.csv" },
       "output": [
@@ -177,6 +192,9 @@
       "@type": ["File", "SoftwareSourceCode"],
       "name": "Random Forest Training Step",
       "programmingLanguage": { "@id": "https://www.python.org/" },
+      "license": {
+        "@id": "https://opensource.org/licenses/MIT"
+      },
       "description": "Trains a Random Forest classifier.",
       "input": [
         { "@id": "data/processed/stats19-features-train-2023-processed-v1.csv" },
@@ -189,6 +207,7 @@
       "@id": "outputs/models/model-random-forest-severity-2023-v1.pkl",
       "@type": ["File", "SoftwareApplication"],
       "name": "Random Forest Model",
+      "license": { "@id": "https://creativecommons.org/licenses/by/4.0/" },
       "encodingFormat": "application/octet-stream",
       "identifier": "https://doi.org/YOUR_TUWRD_MODEL_DOI"
     },
@@ -198,6 +217,9 @@
       "@type": ["File", "SoftwareSourceCode"],
       "name": "Evaluation Step",
       "programmingLanguage": { "@id": "https://www.python.org/" },
+      "license": {
+        "@id": "https://opensource.org/licenses/MIT"
+      },
       "description": "Evaluates the trained model on the test set.",
       "input": [
         { "@id": "outputs/models/model-random-forest-severity-2023-v1.pkl" },
@@ -211,10 +233,10 @@
       ]
     },
 
-    { "@id": "outputs/figures/fig-confusion-matrix-2023-v1.png", "@type": "File", "name": "Confusion Matrix", "encodingFormat": "image/png", "identifier": "https://doi.org/YOUR_TUWRD_OUTPUT_DOI" },
-    { "@id": "outputs/figures/fig-feature-importance-2023-v1.png", "@type": "File", "name": "Feature Importance Plot", "encodingFormat": "image/png" },
-    { "@id": "outputs/reports/report-classification-metrics-2023-v1.csv", "@type": "File", "name": "Classification Report", "encodingFormat": "text/plain" },
-    { "@id": "outputs/reports/report-predictions-test-2023-v1.csv", "@type": "File", "name": "Predictions Report", "encodingFormat": "text/plain" },
+    { "@id": "outputs/figures/fig-confusion-matrix-2023-v1.png", "@type": "File","license": { "@id": "https://creativecommons.org/licenses/by/4.0/" }, "name": "Confusion Matrix", "encodingFormat": "image/png", "identifier": "https://doi.org/YOUR_TUWRD_OUTPUT_DOI" },
+    { "@id": "outputs/figures/fig-feature-importance-2023-v1.png", "@type": "File","license": { "@id": "https://creativecommons.org/licenses/by/4.0/" }, "name": "Feature Importance Plot", "encodingFormat": "image/png" },
+    { "@id": "outputs/reports/report-classification-metrics-2023-v1.csv", "@type": "File","license": { "@id": "https://creativecommons.org/licenses/by/4.0/" }, "name": "Classification Report", "encodingFormat": "text/plain" },
+    { "@id": "outputs/reports/report-predictions-test-2023-v1.csv", "@type": "File","license": { "@id": "https://creativecommons.org/licenses/by/4.0/" }, "name": "Predictions Report", "encodingFormat": "text/plain" },
 
 
     {
@@ -258,14 +280,14 @@
         { "@id": "outputs/figures/fig-severity-distribution-2023-v1.png" }
       ]
     },
-    { "@id": "outputs/figures/fig-hist-day_of_week-2023-v1.png", "@type": "File", "name": "Histogram: Day of Week", "encodingFormat": "image/png" },
-    { "@id": "outputs/figures/fig-hist-light_conditions-2023-v1.png", "@type": "File", "name": "Histogram: Light Conditions", "encodingFormat": "image/png" },
-    { "@id": "outputs/figures/fig-hist-number_of_vehicles-2023-v1.png", "@type": "File", "name": "Histogram: Number of Vehicles", "encodingFormat": "image/png" },
-    { "@id": "outputs/figures/fig-hist-road_surface_conditions-2023-v1.png", "@type": "File", "name": "Histogram: Road Surface Conditions", "encodingFormat": "image/png" },
-    { "@id": "outputs/figures/fig-hist-road_type-2023-v1.png", "@type": "File", "name": "Histogram: Road Type", "encodingFormat": "image/png" },
-    { "@id": "outputs/figures/fig-hist-speed_limit-2023-v1.png", "@type": "File", "name": "Histogram: Speed Limit", "encodingFormat": "image/png" },
-    { "@id": "outputs/figures/fig-hist-vehicle_type-2023-v1.png", "@type": "File", "name": "Histogram: Vehicle Type", "encodingFormat": "image/png" },
-    { "@id": "outputs/figures/fig-hist-weather_conditions-2023-v1.png", "@type": "File", "name": "Histogram: Weather Conditions", "encodingFormat": "image/png" },
-    { "@id": "outputs/figures/fig-severity-distribution-2023-v1.png", "@type": "File", "name": "Severity Distribution Plot", "encodingFormat": "image/png" }
+    { "@id": "outputs/figures/fig-hist-day_of_week-2023-v1.png", "@type": "File","license": { "@id": "https://creativecommons.org/licenses/by/4.0/" }, "name": "Histogram: Day of Week", "encodingFormat": "image/png" },
+    { "@id": "outputs/figures/fig-hist-light_conditions-2023-v1.png", "@type": "File","license": { "@id": "https://creativecommons.org/licenses/by/4.0/" }, "name": "Histogram: Light Conditions", "encodingFormat": "image/png" },
+    { "@id": "outputs/figures/fig-hist-number_of_vehicles-2023-v1.png", "@type": "File","license": { "@id": "https://creativecommons.org/licenses/by/4.0/" }, "name": "Histogram: Number of Vehicles", "encodingFormat": "image/png" },
+    { "@id": "outputs/figures/fig-hist-road_surface_conditions-2023-v1.png", "@type": "File","license": { "@id": "https://creativecommons.org/licenses/by/4.0/" }, "name": "Histogram: Road Surface Conditions", "encodingFormat": "image/png" },
+    { "@id": "outputs/figures/fig-hist-road_type-2023-v1.png", "@type": "File","license": { "@id": "https://creativecommons.org/licenses/by/4.0/" }, "name": "Histogram: Road Type", "encodingFormat": "image/png" },
+    { "@id": "outputs/figures/fig-hist-speed_limit-2023-v1.png", "@type": "File","license": { "@id": "https://creativecommons.org/licenses/by/4.0/" }, "name": "Histogram: Speed Limit", "encodingFormat": "image/png" },
+    { "@id": "outputs/figures/fig-hist-vehicle_type-2023-v1.png", "@type": "File","license": { "@id": "https://creativecommons.org/licenses/by/4.0/" }, "name": "Histogram: Vehicle Type", "encodingFormat": "image/png" },
+    { "@id": "outputs/figures/fig-hist-weather_conditions-2023-v1.png", "@type": "File","license": { "@id": "https://creativecommons.org/licenses/by/4.0/" }, "name": "Histogram: Weather Conditions", "encodingFormat": "image/png" },
+    { "@id": "outputs/figures/fig-severity-distribution-2023-v1.png", "@type": "File","license": { "@id": "https://creativecommons.org/licenses/by/4.0/" }, "name": "Severity Distribution Plot", "encodingFormat": "image/png" }
   ]
 }
