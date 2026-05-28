@@ -49,7 +49,8 @@
         { "@id": "outputs/figures/fig-hist-speed_limit-2023-v1.png" },
         { "@id": "outputs/figures/fig-hist-vehicle_type-2023-v1.png" },
         { "@id": "outputs/figures/fig-hist-weather_conditions-2023-v1.png" },
-        { "@id": "outputs/figures/fig-severity-distribution-2023-v1.png" }
+        { "@id": "outputs/figures/fig-severity-distribution-2023-v1.png" },
+        { "@id": "outputs/model-card-model-random-forest-severity-2023-v1.md" }
       ],
       "isBasedOn": [ { "@id": "https://www.gov.uk/government/statistical-data-sets/road-safety-open-data" } ]
     },
@@ -262,6 +263,15 @@
       "@id": "#dept-transport",
       "@type": "Organization",
       "name": "Department for Transport, United Kingdom"
+    },
+    {
+      "@id": "docs/model-card-model-random-forest-severity-2023-v1.md",
+      "@type": ["File", "CreativeWork"],
+      "name": "Model Card",
+      "encodingFormat": "text/markdown",
+      "description": "Model Card describing the first version of the Random Forest road accident severity prediction model for 2023, including intended use, evaluation, limitations, and ethical considerations.",
+      "about": { "@id": "outputs/models/model-random-forest-severity-2023-v1.pkl" },
+      "license": { "@id": "https://creativecommons.org/licenses/by/4.0/" }
     },
     {
       "@id": "outputs/figures/",
