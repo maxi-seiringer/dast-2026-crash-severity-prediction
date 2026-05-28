@@ -50,7 +50,7 @@
         { "@id": "outputs/figures/fig-hist-vehicle_type-2023-v1.png" },
         { "@id": "outputs/figures/fig-hist-weather_conditions-2023-v1.png" },
         { "@id": "outputs/figures/fig-severity-distribution-2023-v1.png" },
-        { "@id": "outputs/model-card-model-random-forest-severity-2023-v1.md" }
+        { "@id": "outputs/model-cards/model-card-model-random-forest-severity-2023-v1.md" }
       ],
       "isBasedOn": [ { "@id": "https://www.gov.uk/government/statistical-data-sets/road-safety-open-data" } ]
     },
@@ -210,7 +210,7 @@
       "name": "Random Forest Model",
       "license": { "@id": "https://creativecommons.org/licenses/by/4.0/" },
       "encodingFormat": "application/octet-stream",
-      "identifier": "https://doi.org/YOUR_TUWRD_MODEL_DOI"
+      "identifier": "https://doi.org/10.70124/m2a28-1q780"
     },
 
     {
@@ -234,10 +234,10 @@
       ]
     },
 
-    { "@id": "outputs/figures/fig-confusion-matrix-2023-v1.png", "@type": "File","license": { "@id": "https://creativecommons.org/licenses/by/4.0/" }, "name": "Confusion Matrix", "encodingFormat": "image/png", "identifier": "https://doi.org/YOUR_TUWRD_OUTPUT_DOI" },
-    { "@id": "outputs/figures/fig-feature-importance-2023-v1.png", "@type": "File","license": { "@id": "https://creativecommons.org/licenses/by/4.0/" }, "name": "Feature Importance Plot", "encodingFormat": "image/png" },
-    { "@id": "outputs/reports/report-classification-metrics-2023-v1.csv", "@type": "File","license": { "@id": "https://creativecommons.org/licenses/by/4.0/" }, "name": "Classification Report", "encodingFormat": "text/plain" },
-    { "@id": "outputs/reports/report-predictions-test-2023-v1.csv", "@type": "File","license": { "@id": "https://creativecommons.org/licenses/by/4.0/" }, "name": "Predictions Report", "encodingFormat": "text/plain" },
+    { "@id": "outputs/figures/fig-confusion-matrix-2023-v1.png", "@type": "File","license": { "@id": "https://creativecommons.org/licenses/by/4.0/" }, "name": "Confusion Matrix", "encodingFormat": "image/png", "identifier": "https://doi.org/10.70124/69r0a-tc545" },
+    { "@id": "outputs/figures/fig-feature-importance-2023-v1.png", "@type": "File","license": { "@id": "https://creativecommons.org/licenses/by/4.0/" }, "name": "Feature Importance Plot", "encodingFormat": "image/png", "identifier": "https://doi.org/10.70124/69r0a-tc545" },
+    { "@id": "outputs/reports/report-classification-metrics-2023-v1.csv", "@type": "File","license": { "@id": "https://creativecommons.org/licenses/by/4.0/" }, "name": "Classification Report", "encodingFormat": "text/plain", "identifier": "https://doi.org/10.70124/69r0a-tc545" },
+    { "@id": "outputs/reports/report-predictions-test-2023-v1.csv", "@type": "File","license": { "@id": "https://creativecommons.org/licenses/by/4.0/" }, "name": "Predictions Report", "encodingFormat": "text/plain", "identifier": "https://doi.org/10.70124/69r0a-tc545" },
 
 
     {
@@ -265,7 +265,7 @@
       "name": "Department for Transport, United Kingdom"
     },
     {
-      "@id": "docs/model-card-model-random-forest-severity-2023-v1.md",
+      "@id": "docs/model-cards/model-card-model-random-forest-severity-2023-v1.md",
       "@type": ["File", "CreativeWork"],
       "name": "Model Card",
       "encodingFormat": "text/markdown",
@@ -278,6 +278,7 @@
       "@type": "Dataset",
       "name": "Exploratory Figures",
       "description": "Histogram and distribution plots generated during exploratory data analysis.",
+      "identifier": "https://doi.org/10.70124/69r0a-tc545",
       "hasPart": [
         { "@id": "outputs/figures/fig-hist-day_of_week-2023-v1.png" },
         { "@id": "outputs/figures/fig-hist-light_conditions-2023-v1.png" },
@@ -290,14 +291,14 @@
         { "@id": "outputs/figures/fig-severity-distribution-2023-v1.png" }
       ]
     },
-    { "@id": "outputs/figures/fig-hist-day_of_week-2023-v1.png", "@type": "File","license": { "@id": "https://creativecommons.org/licenses/by/4.0/" }, "name": "Histogram: Day of Week", "encodingFormat": "image/png" },
-    { "@id": "outputs/figures/fig-hist-light_conditions-2023-v1.png", "@type": "File","license": { "@id": "https://creativecommons.org/licenses/by/4.0/" }, "name": "Histogram: Light Conditions", "encodingFormat": "image/png" },
-    { "@id": "outputs/figures/fig-hist-number_of_vehicles-2023-v1.png", "@type": "File","license": { "@id": "https://creativecommons.org/licenses/by/4.0/" }, "name": "Histogram: Number of Vehicles", "encodingFormat": "image/png" },
-    { "@id": "outputs/figures/fig-hist-road_surface_conditions-2023-v1.png", "@type": "File","license": { "@id": "https://creativecommons.org/licenses/by/4.0/" }, "name": "Histogram: Road Surface Conditions", "encodingFormat": "image/png" },
-    { "@id": "outputs/figures/fig-hist-road_type-2023-v1.png", "@type": "File","license": { "@id": "https://creativecommons.org/licenses/by/4.0/" }, "name": "Histogram: Road Type", "encodingFormat": "image/png" },
-    { "@id": "outputs/figures/fig-hist-speed_limit-2023-v1.png", "@type": "File","license": { "@id": "https://creativecommons.org/licenses/by/4.0/" }, "name": "Histogram: Speed Limit", "encodingFormat": "image/png" },
-    { "@id": "outputs/figures/fig-hist-vehicle_type-2023-v1.png", "@type": "File","license": { "@id": "https://creativecommons.org/licenses/by/4.0/" }, "name": "Histogram: Vehicle Type", "encodingFormat": "image/png" },
-    { "@id": "outputs/figures/fig-hist-weather_conditions-2023-v1.png", "@type": "File","license": { "@id": "https://creativecommons.org/licenses/by/4.0/" }, "name": "Histogram: Weather Conditions", "encodingFormat": "image/png" },
-    { "@id": "outputs/figures/fig-severity-distribution-2023-v1.png", "@type": "File","license": { "@id": "https://creativecommons.org/licenses/by/4.0/" }, "name": "Severity Distribution Plot", "encodingFormat": "image/png" }
+    { "@id": "outputs/figures/fig-hist-day_of_week-2023-v1.png", "@type": "File","license": { "@id": "https://creativecommons.org/licenses/by/4.0/" }, "name": "Histogram: Day of Week", "encodingFormat": "image/png", "identifier": "https://doi.org/10.70124/69r0a-tc545"},
+    { "@id": "outputs/figures/fig-hist-light_conditions-2023-v1.png", "@type": "File","license": { "@id": "https://creativecommons.org/licenses/by/4.0/" }, "name": "Histogram: Light Conditions", "encodingFormat": "image/png","identifier": "https://doi.org/10.70124/69r0a-tc545" },
+    { "@id": "outputs/figures/fig-hist-number_of_vehicles-2023-v1.png", "@type": "File","license": { "@id": "https://creativecommons.org/licenses/by/4.0/" }, "name": "Histogram: Number of Vehicles", "encodingFormat": "image/png","identifier": "https://doi.org/10.70124/69r0a-tc545" },
+    { "@id": "outputs/figures/fig-hist-road_surface_conditions-2023-v1.png", "@type": "File","license": { "@id": "https://creativecommons.org/licenses/by/4.0/" }, "name": "Histogram: Road Surface Conditions", "encodingFormat": "image/png","identifier": "https://doi.org/10.70124/69r0a-tc545" },
+    { "@id": "outputs/figures/fig-hist-road_type-2023-v1.png", "@type": "File","license": { "@id": "https://creativecommons.org/licenses/by/4.0/" }, "name": "Histogram: Road Type", "encodingFormat": "image/png","identifier": "https://doi.org/10.70124/69r0a-tc545" },
+    { "@id": "outputs/figures/fig-hist-speed_limit-2023-v1.png", "@type": "File","license": { "@id": "https://creativecommons.org/licenses/by/4.0/" }, "name": "Histogram: Speed Limit", "encodingFormat": "image/png","identifier": "https://doi.org/10.70124/69r0a-tc545" },
+    { "@id": "outputs/figures/fig-hist-vehicle_type-2023-v1.png", "@type": "File","license": { "@id": "https://creativecommons.org/licenses/by/4.0/" }, "name": "Histogram: Vehicle Type", "encodingFormat": "image/png","identifier": "https://doi.org/10.70124/69r0a-tc545" },
+    { "@id": "outputs/figures/fig-hist-weather_conditions-2023-v1.png", "@type": "File","license": { "@id": "https://creativecommons.org/licenses/by/4.0/" }, "name": "Histogram: Weather Conditions", "encodingFormat": "image/png", "identifier": "https://doi.org/10.70124/69r0a-tc545"},
+    { "@id": "outputs/figures/fig-severity-distribution-2023-v1.png", "@type": "File","license": { "@id": "https://creativecommons.org/licenses/by/4.0/" }, "name": "Severity Distribution Plot", "encodingFormat": "image/png","identifier": "https://doi.org/10.70124/69r0a-tc545" }
   ]
 }

@@ -14,10 +14,10 @@ records included in the STATS19 open data release.
 The output of the model is a predicted accident severity (slight, serious, fatal) category based on the processed 
 feature set.
 
-The model artifact is stored at `outputs/models/model-random-forest-severity-2023-v1.pkl` and was produced as part of 
-the reproducible machine learning workflow documented in the RO-Crate metadata. The training and evaluation pipeline
-consists of data loading, merging, feature engineering, model training, and evaluation scripts contained in the 
-`src/scripts/` directory.
+The model artifact is stored at `outputs/models/model-random-forest-severity-2023-v1.pkl` and archived under the DOI
+`https://doi.org/10.70124/m2a28-1q780` and was produced as part of the reproducible machine learning workflow documented
+in the RO-Crate metadata. The training and evaluation pipeline consists of data loading, merging, feature engineering, 
+model training, and evaluation scripts contained in the `src/scripts/` directory.
 
 ---
 
@@ -115,6 +115,9 @@ strong class imbalance present in the STATS19 dataset and the difficulty of pred
 Future improvements may include resampling techniques, cost-sensitive learning, hyperparameter optimization, or 
 alternative ensemble methods to improve minority-class prediction performance.
 
+All figures and outputs are stored in the `outputs/figures` and `outputs/reports` directory and are archived under the 
+DOI `https://doi.org/10.70124/69r0a-tc545`.
+
 Additional evaluation artifacts generated during testing include:
 
 * `outputs/figures/fig-confusion-matrix-2023-v1.png`
@@ -123,6 +126,27 @@ Additional evaluation artifacts generated during testing include:
 * `outputs/reports/report-predictions-test-2023-v1.csv`
 
 ---
+
+### Exploratory Analysis Outputs
+
+Exploratory data analysis was performed during the workflow step implemented in `src/notebooks/02-explore.ipynb`.
+The notebook generated multiple histogram and distribution visualizations used to inspect feature distributions, 
+identify potential class imbalance, and support feature engineering decisions. All exploratory figures are stored in 
+the `outputs/figures/` directory and are archived under the DOI `https://doi.org/10.70124/69r0a-tc545`.
+
+The exploratory outputs include:
+
+* `outputs/figures/fig-hist-day_of_week-2023-v1.png`
+* `outputs/figures/fig-hist-light_conditions-2023-v1.png`
+* `outputs/figures/fig-hist-number_of_vehicles-2023-v1.png`
+* `outputs/figures/fig-hist-road_surface_conditions-2023-v1.png`
+* `outputs/figures/fig-hist-road_type-2023-v1.png`
+* `outputs/figures/fig-hist-speed_limit-2023-v1.png`
+* `outputs/figures/fig-hist-vehicle_type-2023-v1.png`
+* `outputs/figures/fig-hist-weather_conditions-2023-v1.png`
+* `outputs/figures/fig-severity-distribution-2023-v1.png`
+
+These visualizations provide descriptive insights into the STATS19 dataset and support transparency and reproducibility of the preprocessing and modeling workflow. The figures were generated directly from the merged interim dataset prior to model training and evaluation.
 
 ## Limitations
 
