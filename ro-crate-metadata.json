@@ -35,6 +35,7 @@
         { "@id": "data/processed/stats19-features-train-2023-processed-v1.csv" },
         { "@id": "data/processed/stats19-features-val-2023-processed-v1.csv" },
         { "@id": "outputs/models/model-random-forest-severity-2023-v1.pkl" },
+        { "@id": "docs/fair4ml-model-random-forest-severity-2023-v1.jsonld" },
         { "@id": "outputs/figures/fig-confusion-matrix-2023-v1.png" },
         { "@id": "outputs/figures/fig-feature-importance-2023-v1.png" },
         { "@id": "outputs/reports/report-classification-metrics-2023-v1.csv" },
@@ -211,6 +212,17 @@
       "license": { "@id": "https://creativecommons.org/licenses/by/4.0/" },
       "encodingFormat": "application/octet-stream",
       "identifier": "https://doi.org/10.70124/m2a28-1q780"
+    },
+
+    {
+      "@id": "docs/fair4ml-model-random-forest-severity-2023-v1.jsonld",
+      "@type": ["File", "CreativeWork"],
+      "name": "FAIR4ML metadata for the Random Forest crash severity classifier",
+      "description": "Machine-readable FAIR4ML JSON-LD metadata describing the trained Random Forest model, its training and evaluation datasets, hyperparameters, evaluation metrics, intended use, and limitations.",
+      "encodingFormat": "application/ld+json",
+      "license": { "@id": "https://creativecommons.org/licenses/by/4.0/" },
+      "about": { "@id": "outputs/models/model-random-forest-severity-2023-v1.pkl" },
+      "conformsTo": { "@id": "https://w3id.org/fair4ml#" }
     },
 
     {
