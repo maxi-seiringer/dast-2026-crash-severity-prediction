@@ -1,0 +1,339 @@
+{
+  "@context": {
+    "@vocab": "https://schema.org/",
+    "schema": "https://schema.org/",
+    "codemeta": "https://w3id.org/codemeta/",
+    "fair4ml": "https://w3id.org/fair4ml#",
+    "cr": "http://mlcommons.org/croissant/"
+  },
+  "@graph": [
+    {
+      "@id": "outputs/models/model-random-forest-severity-2023-v1.pkl",
+      "@type": [
+        "fair4ml:MLModel",
+        "SoftwareApplication"
+      ],
+      "name": "Random Forest crash severity classifier",
+      "alternateName": "model-random-forest-severity-2023-v1",
+      "description": "A scikit-learn RandomForestClassifier trained to predict casualty severity for UK STATS19 2023 road collision records as Fatal, Serious, or Slight from scene-level and vehicle-level features likely to be known during emergency dispatch.",
+      "version": "1.0.0",
+      "applicationCategory": "Machine Learning model",
+      "license": {
+        "@id": "https://creativecommons.org/licenses/by/4.0/"
+      },
+      "creator": [
+        {
+          "@id": "https://orcid.org/0009-0009-5014-2131"
+        },
+        {
+          "@id": "https://orcid.org/0009-0003-2394-5285"
+        },
+        {
+          "@id": "https://orcid.org/0009-0008-4198-6693"
+        },
+        {
+          "@id": "https://orcid.org/0009-0008-9353-7427"
+        }
+      ],
+      "programmingLanguage": "Python",
+      "runtimePlatform": "Python 3",
+      "softwareRequirements": [
+        "scikit-learn==1.8.0",
+        "pandas==3.0.3",
+        "numpy==2.4.6",
+        "joblib==1.5.3"
+      ],
+      "codeRepository": "https://github.com/maxi-seiringer/dast-2026-crash-severity-prediction",
+      "codemeta:readme": "README.md",
+      "codemeta:buildInstructions": "README.md#pipeline",
+      "encodingFormat": "application/octet-stream",
+      "contentUrl": "outputs/models/model-random-forest-severity-2023-v1.pkl",
+      "identifier": [
+        {
+          "@type": "PropertyValue",
+          "propertyID": "local-path",
+          "value": "outputs/models/model-random-forest-severity-2023-v1.pkl"
+        },
+        {
+          "@type": "PropertyValue",
+          "propertyID": "TUWRD model DOI",
+          "value": "Pending: add DOI after the T3.9 model deposit"
+        }
+      ],
+      "keywords": [
+        "road safety",
+        "STATS19",
+        "crash severity",
+        "casualty severity",
+        "random forest",
+        "classification",
+        "emergency dispatch"
+      ],
+      "fair4ml:modelCategory": "Supervised multiclass classification; Random Forest",
+      "fair4ml:mlTask": "Predict casualty severity class from tabular road collision features.",
+      "additionalProperty": [
+        {
+          "@type": "PropertyValue",
+          "name": "algorithm",
+          "value": "RandomForestClassifier"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "algorithm implementation",
+          "value": "scikit-learn 1.8.0"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "n_estimators",
+          "value": 200
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "min_samples_split",
+          "value": 5
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "min_samples_leaf",
+          "value": 2
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "class_weight",
+          "value": "balanced"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "n_jobs",
+          "value": -1
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "random_state",
+          "value": 42
+        }
+      ],
+      "fair4ml:trainedOn": {
+        "@id": "data/processed/stats19-features-train-2023-processed-v1.csv"
+      },
+      "fair4ml:validatedOn": {
+        "@id": "data/processed/stats19-features-val-2023-processed-v1.csv"
+      },
+      "fair4ml:testedOn": {
+        "@id": "data/processed/stats19-features-test-2023-processed-v1.csv"
+      },
+      "fair4ml:evaluatedOn": {
+        "@id": "data/processed/stats19-features-test-2023-processed-v1.csv"
+      },
+      "fair4ml:evaluatedWith": {
+        "@id": "#evaluation-random-forest-severity-2023-v1"
+      },
+      "fair4ml:intendedUse": "The model is intended for a reproducible course experiment that demonstrates how road collision severity can be predicted from STATS19 tabular data and documented with FAIR metadata. It may support retrospective analysis and educational comparison of open-science machine-learning workflows.",
+      "fair4ml:modelRisksBiasLimitations": "The model should not be used for live emergency dispatch, clinical triage, policing, insurance decisions, or individual-level risk decisions. Fatal collisions are rare in the training and test data, and the resulting performance for the Fatal class is weak despite class balancing. The model uses historical 2023 Great Britain STATS19 records and may not generalise to other years, countries, reporting practices, or operational settings.",
+      "fair4ml:ethicalSocial": "Predictions concern road casualties and should be interpreted cautiously. The model can reproduce historical reporting biases and class imbalance in STATS19. Any operational use would require additional validation, governance, monitoring, and human oversight.",
+      "fair4ml:legal": "The source data is UK public-sector information licensed under the Open Government Licence v3.0. The generated model artefact is intended to be released under CC BY 4.0 as project output data.",
+      "input": [
+        {
+          "@id": "data/processed/stats19-features-train-2023-processed-v1.csv"
+        },
+        {
+          "@id": "data/processed/stats19-features-val-2023-processed-v1.csv"
+        }
+      ],
+      "output": {
+        "@id": "outputs/models/model-random-forest-severity-2023-v1.pkl"
+      },
+      "isBasedOn": {
+        "@id": "https://www.gov.uk/government/statistical-data-sets/road-safety-open-data"
+      }
+    },
+    {
+      "@id": "#evaluation-random-forest-severity-2023-v1",
+      "@type": "fair4ml:MLModelEvaluation",
+      "name": "Random Forest crash severity test-set evaluation",
+      "description": "Evaluation of the trained Random Forest classifier on the held-out STATS19 2023 test split.",
+      "fair4ml:evaluatedMLModel": {
+        "@id": "outputs/models/model-random-forest-severity-2023-v1.pkl"
+      },
+      "fair4ml:evaluationDataset": {
+        "@id": "data/processed/stats19-features-test-2023-processed-v1.csv"
+      },
+      "fair4ml:evaluationSoftware": {
+        "@id": "src/scripts/05-evaluate.py"
+      },
+      "fair4ml:extrinsicEvaluation": false,
+      "fair4ml:evaluationMetrics": [
+        {
+          "@type": "PropertyValue",
+          "name": "accuracy",
+          "value": 0.6297886393659181,
+          "unitText": "ratio"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "macro average precision",
+          "value": 0.39274232397627,
+          "unitText": "ratio"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "macro average recall",
+          "value": 0.40299151427515817,
+          "unitText": "ratio"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "macro average F1-score",
+          "value": 0.3949615112519693,
+          "unitText": "ratio"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "weighted average precision",
+          "value": 0.6534502334209996,
+          "unitText": "ratio"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "weighted average recall",
+          "value": 0.6297886393659181,
+          "unitText": "ratio"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "weighted average F1-score",
+          "value": 0.6406722084309181,
+          "unitText": "ratio"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Fatal precision",
+          "value": 0.03664921465968586,
+          "unitText": "ratio"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Fatal recall",
+          "value": 0.07608695652173914,
+          "unitText": "ratio"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Fatal F1-score",
+          "value": 0.04946996466431095,
+          "unitText": "ratio"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Serious precision",
+          "value": 0.36941964285714285,
+          "unitText": "ratio"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Serious recall",
+          "value": 0.40940012368583795,
+          "unitText": "ratio"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Serious F1-score",
+          "value": 0.3883836902317395,
+          "unitText": "ratio"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Slight precision",
+          "value": 0.7721581144119813,
+          "unitText": "ratio"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Slight recall",
+          "value": 0.7234874626178974,
+          "unitText": "ratio"
+        },
+        {
+          "@type": "PropertyValue",
+          "name": "Slight F1-score",
+          "value": 0.7470308788598575,
+          "unitText": "ratio"
+        }
+      ],
+      "fair4ml:evaluationResults": "The model reaches 0.6298 test accuracy and 0.6407 weighted F1-score. Performance is strongest for the majority Slight class with F1-score 0.7470, lower for Serious with F1-score 0.3884, and very weak for the rare Fatal class with F1-score 0.0495.",
+      "result": [
+        {
+          "@id": "outputs/reports/report-classification-metrics-2023-v1.csv"
+        },
+        {
+          "@id": "outputs/figures/fig-confusion-matrix-2023-v1.png"
+        },
+        {
+          "@id": "outputs/figures/fig-feature-importance-2023-v1.png"
+        }
+      ]
+    },
+    {
+      "@id": "https://orcid.org/0009-0009-5014-2131",
+      "@type": "Person",
+      "name": "Sebastian Schnitzer"
+    },
+    {
+      "@id": "https://orcid.org/0009-0003-2394-5285",
+      "@type": "Person",
+      "name": "Maxime Philippon"
+    },
+    {
+      "@id": "https://orcid.org/0009-0008-4198-6693",
+      "@type": "Person",
+      "name": "Maximillian Seiringer"
+    },
+    {
+      "@id": "https://orcid.org/0009-0008-9353-7427",
+      "@type": "Person",
+      "name": "Anton Windsperger"
+    },
+    {
+      "@id": "data/processed/stats19-features-train-2023-processed-v1.csv",
+      "@type": "cr:Dataset",
+      "name": "STATS19 crash severity training split 2023",
+      "description": "Training split generated from the STATS19 2023 road collision, vehicle, and casualty tables for the crash severity prediction experiment.",
+      "license": {
+        "@id": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+      },
+      "identifier": {
+        "@type": "PropertyValue",
+        "propertyID": "Dataset DOI",
+        "value": "Pending: add DOI or persistent DBRepo/TUWRD identifier when available"
+      }
+    },
+    {
+      "@id": "data/processed/stats19-features-val-2023-processed-v1.csv",
+      "@type": "cr:Dataset",
+      "name": "STATS19 crash severity validation split 2023",
+      "description": "Validation split generated from the STATS19 2023 road collision, vehicle, and casualty tables for model selection and validation.",
+      "license": {
+        "@id": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+      },
+      "identifier": {
+        "@type": "PropertyValue",
+        "propertyID": "Dataset DOI",
+        "value": "Pending: add DOI or persistent DBRepo/TUWRD identifier when available"
+      }
+    },
+    {
+      "@id": "data/processed/stats19-features-test-2023-processed-v1.csv",
+      "@type": "cr:Dataset",
+      "name": "STATS19 crash severity test split 2023",
+      "description": "Held-out test split generated from the STATS19 2023 road collision, vehicle, and casualty tables for final model evaluation.",
+      "license": {
+        "@id": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+      },
+      "identifier": {
+        "@type": "PropertyValue",
+        "propertyID": "Dataset DOI",
+        "value": "Pending: add DOI or persistent DBRepo/TUWRD identifier when available"
+      }
+    }
+  ]
+}
