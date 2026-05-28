@@ -13,9 +13,7 @@ import joblib
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import classification_report
 from dotenv import load_dotenv
-import sys
-sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "src"))
-from utils.dbrepo import DBRepoClient, DBRepoError
+ 
 
 load_dotenv()
 
@@ -28,21 +26,25 @@ OUTPUTS_MODEL.mkdir(parents=True, exist_ok=True)
 TARGET_COL   = "casualty_severity"
 TARGET_NAMES = ["Fatal", "Serious", "Slight"]  # codes 1, 2, 3
 
-# --- Load train and validation splits ---
-def load_from_api_candidates(client: DBRepoClient, name_candidates):
-    # Try candidate view names and return the first that exists
-    view = client.find_first_existing_view(name_candidates)
-    if not view:
-        raise DBRepoError(f"No candidate views found for names: {name_candidates}")
-    df = client.get_view(view)
+def load_split_csv(split_name: str):
+    path = PROCESSED / f"stats19-features-{split_name}-2023-processed-v1.csv"
+    if not path.exists():
+        return None
+    df = pd.read_csv(path)
     return df.drop(columns=[TARGET_COL]), df[TARGET_COL].astype(int)
 
-client = DBRepoClient()
-train_candidates = ["v_features_train", "v_ml_features_train", "ml_features_train", "features_train"]
-val_candidates = ["v_features_val", "v_ml_features_val", "ml_features_val", "features_val"]
+split = load_split_csv("train")
+if split is None:
+    raise FileNotFoundError("Missing processed train split. Run src/scripts/03-prepare-features.py first.")
+else:
+    X_train, y_train = split
 
-X_train, y_train = load_from_api_candidates(client, train_candidates)
-X_val,   y_val   = load_from_api_candidates(client, val_candidates)
+split = load_split_csv("val")
+if split is None:
+    raise FileNotFoundError("Missing processed validation split. Run src/scripts/03-prepare-features.py first.")
+else:
+    X_val, y_val = split
+
 print(f"Train: {len(X_train):,} rows  |  Val: {len(X_val):,} rows")
 
 # --- Train the Random Forest ---

@@ -195,17 +195,17 @@ MariaDB-compatible version in `src/sql/04_views_mariadb.sql`.
 
 | View | Purpose |
 |------|---------|
-| `v_ml_features` | Main feature table for model training; one row per casualty with scene-condition features and the target label. |
-| `v_severity_distribution` | Class distribution of casualty severity with counts and percentages. |
-| `v_collision_summary` | One row per collision with aggregated severity and scene conditions. |
-| `v_feature_null_check` | Null-value counts for ML feature columns. |
+| `v_severity_distribution` | Casualty severity distribution with counts and percentages, used as a sanity check. |
+| `v_collision_summary` | Collision-level scene summary with road, weather, lighting, time, and exposure fields. |
+| `v_feature_null_check` | Data-quality check for casualty features, focusing on missing values. |
 
-The scripts also expect split-specific DBRepo views for training, validation,
-and testing. The accepted candidate names are:
+The de-normalized ML source used by the pipeline is the materialized table
+`t_ml_features`, which is created from the DBRepo data path when available.
 
-- training: `v_features_train`, `v_ml_features_train`, `ml_features_train`, `features_train`
-- validation: `v_features_val`, `v_ml_features_val`, `ml_features_val`, `features_val`
-- testing: `v_features_test`, `v_ml_features_test`, `ml_features_test`, `features_test`
+The scripts no longer depend on split-specific DBRepo views for training,
+validation, or testing. Instead, `03-prepare-features.py` creates local train,
+validation, and test CSV splits from the interim feature table, and `04-train.py`
+and `05-evaluate.py` consume those local splits.
 
 ## Step-By-Step Reproduction
 

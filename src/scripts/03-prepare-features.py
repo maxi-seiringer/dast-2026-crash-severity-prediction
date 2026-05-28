@@ -7,6 +7,7 @@ Run from the repo root:
 """
 
 from pathlib import Path
+import os
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
@@ -17,6 +18,9 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[2] / "src"))
 from utils.dbrepo import DBRepoClient, DBRepoError
 
 load_dotenv()
+
+EXPECTED_DB_ID = "3d81c073-e5fd-49b9-9536-b75ed490ca3e"
+os.environ.setdefault("DBREPO_DB_ID", EXPECTED_DB_ID)
 
 # --- Paths ---
 REPO_ROOT = Path(__file__).resolve().parents[2]
@@ -33,13 +37,38 @@ FEATURE_COLS = [
 TARGET_COL = "casualty_severity"
 
 def load_merged_from_api():
+    interim_file = INTERIM / "stats19-collision-vehicle-casualty-2023-interim-v1.csv"
+    if interim_file.exists():
+        df = pd.read_csv(interim_file)
+        print(f"Loaded {len(df):,} rows from {interim_file.relative_to(REPO_ROOT)}")
+        return df
+
     client = DBRepoClient()
-    view_candidates = ["v_ml_features", "v_ml_merged", "ml_features", "v_features"]
-    view = client.find_first_existing_view(view_candidates)
-    if not view:
-        raise DBRepoError(f"None of the candidate views found: {view_candidates}")
-    df = client.get_view(view)
-    print(f"Fetched {len(df):,} rows from view '{view}'")
+    if client.db_id != EXPECTED_DB_ID:
+        raise DBRepoError(
+            f"DBREPO_DB_ID={client.db_id} does not match expected {EXPECTED_DB_ID}."
+        )
+
+    required_views = ["v_severity_distribution", "v_collision_summary", "v_feature_null_check"]
+    available_views = set(client.list_views())
+    missing = [v for v in required_views if v not in available_views]
+    if missing:
+        raise DBRepoError(f"Missing required DBRepo views: {missing}")
+
+    collision_view = client.get_view("v_collision_summary")
+    casualty = client.get_table("casualty")
+    vehicle = client.get_table("vehicle")
+
+    df = casualty.merge(
+        collision_view[["collision_index", "road_type", "speed_limit", "weather_conditions",
+                        "light_conditions", "road_surface_conditions", "time", "day_of_week", "number_of_vehicles"]],
+        on="collision_index", how="inner"
+    )
+    df = df.merge(
+        vehicle[["collision_index", "vehicle_reference", "vehicle_type"]],
+        on=["collision_index", "vehicle_reference"], how="inner"
+    )
+    print(f"Fetched and merged {len(df):,} rows from DBRepo views/tables")
     return df
 
 
