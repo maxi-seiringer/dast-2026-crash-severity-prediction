@@ -1,0 +1,881 @@
+{
+  "@context": {
+    "@language": "en",
+    "@vocab": "https://schema.org/",
+    "cr": "http://mlcommons.org/croissant/",
+    "dct": "http://purl.org/dc/terms/",
+    "sc": "https://schema.org/",
+    "qudt": "http://qudt.org/schema/qudt/",
+    "unit": "http://qudt.org/vocab/unit/"
+  },
+  "@type": "sc:Dataset",
+  "@id": "https://test.dbrepo.tuwien.ac.at/database/3d81c073-e5fd-49b9-9536-b75ed490ca3e/table",
+  "name": "UK STATS19 Road Safety Data 2023",
+  "description": "Official UK road traffic collision data for the year 2023, collected under the STATS19 reporting framework by police forces across Great Britain. The dataset covers three linked tables: collision-level records (circumstances, location, severity), vehicle-level records (vehicle and driver characteristics), and casualty-level records (injuries sustained). Used as input for a machine-learning experiment predicting road crash severity (Slight / Serious / Fatal).",
+  "url": "https://www.data.gov.uk/dataset/cb7ae6f0-4be6-4935-9277-47e5ce24a11f/road-safety-data",
+  "dct:license": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+  "license": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/",
+  "cr:conformsTo": "http://mlcommons.org/croissant/1.0",
+  "isAccessibleForFree": true,
+  "keywords": [
+    "road safety",
+    "traffic collisions",
+    "STATS19",
+    "UK",
+    "crash severity",
+    "casualties",
+    "vehicles"
+  ],
+  "publisher": {
+    "@type": "sc:Organization",
+    "name": "Department for Transport, UK",
+    "url": "https://www.gov.uk/government/organisations/department-for-transport"
+  },
+  "creator": {
+    "@type": "sc:Organization",
+    "name": "Department for Transport, UK"
+  },
+  "temporalCoverage": "2023-01-01/2023-12-31",
+  "spatialCoverage": {
+    "@type": "sc:Place",
+    "name": "Great Britain"
+  },
+  "cr:distribution": [
+    {
+      "@type": "cr:FileObject",
+      "@id": "collision-csv",
+      "name": "dft-road-casualty-statistics-collision-2023.csv",
+      "description": "Collision-level records: one row per collision event.",
+      "contentUrl": "https://data.dft.gov.uk/road-accidents-safety-data/dft-road-casualty-statistics-collision-2023.csv",
+      "encodingFormat": "text/csv",
+      "sc:license": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "vehicle-csv",
+      "name": "dft-road-casualty-statistics-vehicle-2023.csv",
+      "description": "Vehicle-level records: one row per vehicle involved in a collision.",
+      "contentUrl": "https://data.dft.gov.uk/road-accidents-safety-data/dft-road-casualty-statistics-vehicle-2023.csv",
+      "encodingFormat": "text/csv",
+      "sc:license": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+    },
+    {
+      "@type": "cr:FileObject",
+      "@id": "casualty-csv",
+      "name": "dft-road-casualty-statistics-casualty-2023.csv",
+      "description": "Casualty-level records: one row per person injured or killed.",
+      "contentUrl": "https://data.dft.gov.uk/road-accidents-safety-data/dft-road-casualty-statistics-casualty-2023.csv",
+      "encodingFormat": "text/csv",
+      "sc:license": "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+    }
+  ],
+  "cr:recordSet": [
+    {
+      "@type": "cr:RecordSet",
+      "@id": "collision",
+      "name": "collision",
+      "description": "One record per collision event. Contains location, severity, time, road, and environmental attributes.",
+      "cr:source": { "@id": "collision-csv" },
+      "cr:field": [
+        {
+          "@type": "cr:Field",
+          "@id": "collision/collision_index",
+          "name": "collision_index",
+          "description": "Unique identifier for the collision record.",
+          "sc:sameAs": "https://schema.org/identifier",
+          "cr:dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "collision/collision_year",
+          "name": "collision_year",
+          "description": "Calendar year in which the collision occurred.",
+          "sc:sameAs": "http://www.w3.org/2006/time#year",
+          "cr:dataType": "sc:Integer"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "collision/collision_ref_no",
+          "name": "collision_ref_no",
+          "description": "Police-assigned reference number for the collision.",
+          "sc:sameAs": "https://schema.org/identifier",
+          "cr:dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "collision/location_easting_osgr",
+          "name": "location_easting_osgr",
+          "description": "Easting coordinate in the Ordnance Survey National Grid Reference system.",
+          "sc:sameAs": "https://schema.org/geo",
+          "cr:dataType": "sc:Number",
+          "qudt:hasUnit": { "@id": "unit:M" },
+          "qudt:hasQuantityKind": { "@id": "http://qudt.org/vocab/quantitykind/Length" }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "collision/location_northing_osgr",
+          "name": "location_northing_osgr",
+          "description": "Northing coordinate in the Ordnance Survey National Grid Reference system.",
+          "sc:sameAs": "https://schema.org/geo",
+          "cr:dataType": "sc:Number",
+          "qudt:hasUnit": { "@id": "unit:M" },
+          "qudt:hasQuantityKind": { "@id": "http://qudt.org/vocab/quantitykind/Length" }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "collision/longitude",
+          "name": "longitude",
+          "description": "WGS84 longitude of the collision location.",
+          "sc:sameAs": "http://www.w3.org/2003/01/geo/wgs84_pos#long",
+          "cr:dataType": "sc:Number",
+          "qudt:hasUnit": { "@id": "unit:DEG" },
+          "qudt:hasQuantityKind": { "@id": "http://qudt.org/vocab/quantitykind/Angle" }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "collision/latitude",
+          "name": "latitude",
+          "description": "WGS84 latitude of the collision location.",
+          "sc:sameAs": "http://www.w3.org/2003/01/geo/wgs84_pos#lat",
+          "cr:dataType": "sc:Number",
+          "qudt:hasUnit": { "@id": "unit:DEG" },
+          "qudt:hasQuantityKind": { "@id": "http://qudt.org/vocab/quantitykind/Angle" }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "collision/police_force",
+          "name": "police_force",
+          "description": "Police force area in which the collision was reported.",
+          "sc:sameAs": "https://schema.org/Organization",
+          "cr:dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "collision/collision_severity",
+          "name": "collision_severity",
+          "description": "Overall severity of the collision: Fatal, Serious, or Slight.",
+          "sc:sameAs": "http://cef.uv.es/lodroadtran18/def/transporte/dtx_srti#Accident",
+          "cr:dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "collision/number_of_vehicles",
+          "name": "number_of_vehicles",
+          "description": "Number of vehicles involved in the collision.",
+          "sc:sameAs": "http://cef.uv.es/lodroadtran18/def/transporte/dtx_srti#numberOfVehiclesInvolved",
+          "cr:dataType": "sc:Integer",
+          "qudt:hasUnit": { "@id": "unit:NUM" },
+          "qudt:hasQuantityKind": { "@id": "http://qudt.org/vocab/quantitykind/Dimensionless" }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "collision/number_of_casualties",
+          "name": "number_of_casualties",
+          "description": "Total number of casualties (injured or killed) in the collision.",
+          "sc:sameAs": "http://cef.uv.es/lodroadtran18/def/transporte/dtx_srti#Accident",
+          "cr:dataType": "sc:Integer",
+          "qudt:hasUnit": { "@id": "unit:NUM" },
+          "qudt:hasQuantityKind": { "@id": "http://qudt.org/vocab/quantitykind/Dimensionless" }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "collision/date",
+          "name": "date",
+          "description": "Date on which the collision occurred (YYYY-MM-DD).",
+          "sc:sameAs": "http://www.w3.org/2006/time#Instant",
+          "cr:dataType": "sc:Date"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "collision/day_of_week",
+          "name": "day_of_week",
+          "description": "Day of the week on which the collision occurred.",
+          "sc:sameAs": "http://www.w3.org/2006/time#DayOfWeek",
+          "cr:dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "collision/time",
+          "name": "time",
+          "description": "Time of day at which the collision occurred (HH:MM).",
+          "sc:sameAs": "http://www.w3.org/2006/time#hour",
+          "cr:dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "collision/local_authority_district",
+          "name": "local_authority_district",
+          "description": "Local authority district where the collision occurred.",
+          "sc:sameAs": "https://schema.org/AdministrativeArea",
+          "cr:dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "collision/local_authority_ons_district",
+          "name": "local_authority_ons_district",
+          "description": "ONS district code for the local authority.",
+          "sc:sameAs": "https://schema.org/AdministrativeArea",
+          "cr:dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "collision/local_authority_highway",
+          "name": "local_authority_highway",
+          "description": "Highway authority responsible for the road.",
+          "sc:sameAs": "https://schema.org/AdministrativeArea",
+          "cr:dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "collision/local_authority_highway_current",
+          "name": "local_authority_highway_current",
+          "description": "Current highway authority code.",
+          "sc:sameAs": "https://schema.org/AdministrativeArea",
+          "cr:dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "collision/first_road_class",
+          "name": "first_road_class",
+          "description": "Classification of the first road involved (e.g. motorway, A-road).",
+          "sc:sameAs": "https://wiki.openstreetmap.org/wiki/Key:highway",
+          "cr:dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "collision/first_road_number",
+          "name": "first_road_number",
+          "description": "Reference number of the first road involved.",
+          "sc:sameAs": "https://wiki.openstreetmap.org/wiki/Key:ref",
+          "cr:dataType": "sc:Number",
+          "qudt:hasUnit": { "@id": "unit:NUM" },
+          "qudt:hasQuantityKind": { "@id": "http://qudt.org/vocab/quantitykind/Dimensionless" }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "collision/road_type",
+          "name": "road_type",
+          "description": "Type of road on which the collision occurred.",
+          "sc:sameAs": "https://wiki.openstreetmap.org/wiki/Key:highway",
+          "cr:dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "collision/speed_limit",
+          "name": "speed_limit",
+          "description": "Posted speed limit on the road at the collision location.",
+          "sc:sameAs": "https://wiki.openstreetmap.org/wiki/Key:maxspeed",
+          "cr:dataType": "sc:Number",
+          "qudt:hasUnit": { "@id": "unit:MI_PER_HR" },
+          "qudt:hasQuantityKind": { "@id": "http://qudt.org/vocab/quantitykind/Speed" }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "collision/junction_detail",
+          "name": "junction_detail",
+          "description": "Type of junction at the collision location.",
+          "sc:sameAs": "http://cef.uv.es/lodroadtran18/def/transporte/dtx_srti#Junction",
+          "cr:dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "collision/junction_control",
+          "name": "junction_control",
+          "description": "Type of traffic control at the junction.",
+          "sc:sameAs": "http://cef.uv.es/lodroadtran18/def/transporte/dtx_srti#Junction",
+          "cr:dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "collision/second_road_class",
+          "name": "second_road_class",
+          "description": "Classification of the second road at the junction.",
+          "sc:sameAs": "https://wiki.openstreetmap.org/wiki/Key:highway",
+          "cr:dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "collision/second_road_number",
+          "name": "second_road_number",
+          "description": "Reference number of the second road at the junction.",
+          "sc:sameAs": "https://wiki.openstreetmap.org/wiki/Key:ref",
+          "cr:dataType": "sc:Number",
+          "qudt:hasUnit": { "@id": "unit:NUM" },
+          "qudt:hasQuantityKind": { "@id": "http://qudt.org/vocab/quantitykind/Dimensionless" }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "collision/pedestrian_crossing",
+          "name": "pedestrian_crossing",
+          "description": "Pedestrian crossing facility present at the collision site.",
+          "sc:sameAs": "https://wiki.openstreetmap.org/wiki/Key:crossing",
+          "cr:dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "collision/light_conditions",
+          "name": "light_conditions",
+          "description": "Ambient light conditions at the time of collision.",
+          "sc:sameAs": "http://www.w3.org/ns/sosa/ObservableProperty",
+          "cr:dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "collision/weather_conditions",
+          "name": "weather_conditions",
+          "description": "Weather conditions at the time of collision.",
+          "sc:sameAs": "http://www.w3.org/ns/sosa/ObservableProperty",
+          "cr:dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "collision/road_surface_conditions",
+          "name": "road_surface_conditions",
+          "description": "Condition of the road surface at the time of collision.",
+          "sc:sameAs": "https://wiki.openstreetmap.org/wiki/Key:surface",
+          "cr:dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "collision/special_conditions_at_site",
+          "name": "special_conditions_at_site",
+          "description": "Any special conditions at the collision site (e.g. road works).",
+          "sc:sameAs": "http://www.w3.org/ns/sosa/ObservableProperty",
+          "cr:dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "collision/carriageway_hazards",
+          "name": "carriageway_hazards",
+          "description": "Obstructions or hazards on the carriageway.",
+          "sc:sameAs": "http://cef.uv.es/lodroadtran18/def/transporte/dtx_srti#Obstruction",
+          "cr:dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "collision/urban_or_rural_area",
+          "name": "urban_or_rural_area",
+          "description": "Whether the collision occurred in an urban or rural area.",
+          "sc:sameAs": "https://schema.org/Place",
+          "cr:dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "collision/did_police_officer_attend_scene_of_accident",
+          "name": "did_police_officer_attend_scene_of_accident",
+          "description": "Indicator of whether a police officer attended the scene.",
+          "sc:sameAs": "https://schema.org/Observation",
+          "cr:dataType": "sc:Integer",
+          "qudt:hasUnit": { "@id": "unit:NUM" },
+          "qudt:hasQuantityKind": { "@id": "http://qudt.org/vocab/quantitykind/Dimensionless" }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "collision/trunk_road_flag",
+          "name": "trunk_road_flag",
+          "description": "Flag indicating whether the road is a trunk road.",
+          "sc:sameAs": "https://wiki.openstreetmap.org/wiki/Key:highway",
+          "cr:dataType": "sc:Integer",
+          "qudt:hasUnit": { "@id": "unit:NUM" },
+          "qudt:hasQuantityKind": { "@id": "http://qudt.org/vocab/quantitykind/Dimensionless" }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "collision/lsoa_of_accident_location",
+          "name": "lsoa_of_accident_location",
+          "description": "Lower Super Output Area code of the collision location.",
+          "sc:sameAs": "https://schema.org/AdministrativeArea",
+          "cr:dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "collision/enhanced_severity_collision",
+          "name": "enhanced_severity_collision",
+          "description": "Enhanced severity classification using adjusted STATS19 methodology.",
+          "sc:sameAs": "http://cef.uv.es/lodroadtran18/def/transporte/dtx_srti#Accident",
+          "cr:dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "collision/collision_injury_based",
+          "name": "collision_injury_based",
+          "description": "Injury-based severity score for the collision.",
+          "sc:sameAs": "http://cef.uv.es/lodroadtran18/def/transporte/dtx_srti#Accident",
+          "cr:dataType": "sc:Number",
+          "qudt:hasUnit": { "@id": "unit:NUM" },
+          "qudt:hasQuantityKind": { "@id": "http://qudt.org/vocab/quantitykind/Dimensionless" }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "collision/collision_adjusted_severity_serious",
+          "name": "collision_adjusted_severity_serious",
+          "description": "Probability score that the collision is of Serious severity (adjusted methodology).",
+          "sc:sameAs": "http://cef.uv.es/lodroadtran18/def/transporte/dtx_srti#Accident",
+          "cr:dataType": "sc:Number",
+          "qudt:hasUnit": { "@id": "unit:NUM" },
+          "qudt:hasQuantityKind": { "@id": "http://qudt.org/vocab/quantitykind/Dimensionless" }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "collision/collision_adjusted_severity_slight",
+          "name": "collision_adjusted_severity_slight",
+          "description": "Probability score that the collision is of Slight severity (adjusted methodology).",
+          "sc:sameAs": "http://cef.uv.es/lodroadtran18/def/transporte/dtx_srti#Accident",
+          "cr:dataType": "sc:Number",
+          "qudt:hasUnit": { "@id": "unit:NUM" },
+          "qudt:hasQuantityKind": { "@id": "http://qudt.org/vocab/quantitykind/Dimensionless" }
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "vehicle",
+      "name": "vehicle",
+      "description": "One record per vehicle involved in a collision. Contains vehicle characteristics and driver attributes.",
+      "cr:source": { "@id": "vehicle-csv" },
+      "cr:field": [
+        {
+          "@type": "cr:Field",
+          "@id": "vehicle/vehicle_id",
+          "name": "vehicle_id",
+          "description": "Surrogate primary key for the vehicle record.",
+          "sc:sameAs": "https://schema.org/identifier",
+          "cr:dataType": "sc:Number",
+          "qudt:hasUnit": { "@id": "unit:NUM" },
+          "qudt:hasQuantityKind": { "@id": "http://qudt.org/vocab/quantitykind/Dimensionless" }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "vehicle/collision_index",
+          "name": "collision_index",
+          "description": "Foreign key linking to the collision table.",
+          "sc:sameAs": "https://schema.org/identifier",
+          "cr:dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "vehicle/vehicle_reference",
+          "name": "vehicle_reference",
+          "description": "Sequential reference number of the vehicle within a collision.",
+          "sc:sameAs": "https://schema.org/identifier",
+          "cr:dataType": "sc:Number",
+          "qudt:hasUnit": { "@id": "unit:NUM" },
+          "qudt:hasQuantityKind": { "@id": "http://qudt.org/vocab/quantitykind/Dimensionless" }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "vehicle/vehicle_type",
+          "name": "vehicle_type",
+          "description": "Type or category of the vehicle (e.g. car, motorcycle, HGV).",
+          "sc:sameAs": "http://automotive.eurecom.fr/vsso#Vehicle",
+          "cr:dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "vehicle/towing_and_articulation",
+          "name": "towing_and_articulation",
+          "description": "Whether the vehicle was towing or articulated.",
+          "sc:sameAs": "http://cef.uv.es/lodroadtran18/def/transporte/dtx_srti#VehicleEquipmentEnum",
+          "cr:dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "vehicle/vehicle_manoeuvre",
+          "name": "vehicle_manoeuvre",
+          "description": "Manoeuvre the vehicle was performing at the time of collision.",
+          "sc:sameAs": "http://cef.uv.es/lodroadtran18/def/transporte/dtx_srti#VehicleManoeuvreEnum",
+          "cr:dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "vehicle/vehicle_direction_from",
+          "name": "vehicle_direction_from",
+          "description": "Direction from which the vehicle was travelling.",
+          "sc:sameAs": "http://cef.uv.es/lodroadtran18/def/transporte/dtx_srti#direction",
+          "cr:dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "vehicle/vehicle_direction_to",
+          "name": "vehicle_direction_to",
+          "description": "Direction to which the vehicle was travelling.",
+          "sc:sameAs": "http://cef.uv.es/lodroadtran18/def/transporte/dtx_srti#direction",
+          "cr:dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "vehicle/vehicle_location_restricted_lane",
+          "name": "vehicle_location_restricted_lane",
+          "description": "Whether the vehicle was in a restricted lane.",
+          "sc:sameAs": "http://cef.uv.es/lodroadtran18/def/transporte/dtx_srti#LaneEnum",
+          "cr:dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "vehicle/junction_location",
+          "name": "junction_location",
+          "description": "Location of the vehicle relative to the junction.",
+          "sc:sameAs": "http://cef.uv.es/lodroadtran18/def/transporte/dtx_srti#Junction",
+          "cr:dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "vehicle/skidding_and_overturning",
+          "name": "skidding_and_overturning",
+          "description": "Whether the vehicle skidded or overturned.",
+          "sc:sameAs": "http://cef.uv.es/lodroadtran18/def/transporte/dtx_srti#Accident",
+          "cr:dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "vehicle/hit_object_in_carriageway",
+          "name": "hit_object_in_carriageway",
+          "description": "Object hit by the vehicle within the carriageway.",
+          "sc:sameAs": "http://cef.uv.es/lodroadtran18/def/transporte/dtx_srti#Accident",
+          "cr:dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "vehicle/vehicle_leaving_carriageway",
+          "name": "vehicle_leaving_carriageway",
+          "description": "Whether and how the vehicle left the carriageway.",
+          "sc:sameAs": "http://cef.uv.es/lodroadtran18/def/transporte/dtx_srti#Accident",
+          "cr:dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "vehicle/hit_object_off_carriageway",
+          "name": "hit_object_off_carriageway",
+          "description": "Object hit by the vehicle after leaving the carriageway.",
+          "sc:sameAs": "http://cef.uv.es/lodroadtran18/def/transporte/dtx_srti#Accident",
+          "cr:dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "vehicle/first_point_of_impact",
+          "name": "first_point_of_impact",
+          "description": "Part of the vehicle that was first impacted.",
+          "sc:sameAs": "http://cef.uv.es/lodroadtran18/def/transporte/dtx_srti#Accident",
+          "cr:dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "vehicle/vehicle_left_hand_drive",
+          "name": "vehicle_left_hand_drive",
+          "description": "Flag indicating whether the vehicle is left-hand drive.",
+          "sc:sameAs": "http://automotive.eurecom.fr/vsso#SteeringWheelPosition",
+          "cr:dataType": "sc:Number",
+          "qudt:hasUnit": { "@id": "unit:NUM" },
+          "qudt:hasQuantityKind": { "@id": "http://qudt.org/vocab/quantitykind/Dimensionless" }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "vehicle/journey_purpose_of_driver",
+          "name": "journey_purpose_of_driver",
+          "description": "Purpose of the driver's journey at the time of collision.",
+          "sc:sameAs": "https://schema.org/Trip",
+          "cr:dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "vehicle/sex_of_driver",
+          "name": "sex_of_driver",
+          "description": "Sex of the driver.",
+          "sc:sameAs": "http://xmlns.com/foaf/0.1/gender",
+          "cr:dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "vehicle/age_of_driver",
+          "name": "age_of_driver",
+          "description": "Age of the driver in years.",
+          "sc:sameAs": "http://xmlns.com/foaf/0.1/age",
+          "cr:dataType": "sc:Number",
+          "qudt:hasUnit": { "@id": "unit:YR" },
+          "qudt:hasQuantityKind": { "@id": "http://qudt.org/vocab/quantitykind/Time" }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "vehicle/age_band_of_driver",
+          "name": "age_band_of_driver",
+          "description": "Age band category of the driver.",
+          "sc:sameAs": "http://xmlns.com/foaf/0.1/age",
+          "cr:dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "vehicle/engine_capacity_cc",
+          "name": "engine_capacity_cc",
+          "description": "Engine displacement of the vehicle in cubic centimetres.",
+          "sc:sameAs": "http://automotive.eurecom.fr/vsso#EngineDisplacement",
+          "cr:dataType": "sc:Number",
+          "qudt:hasUnit": { "@id": "unit:CentiM3" },
+          "qudt:hasQuantityKind": { "@id": "http://qudt.org/vocab/quantitykind/Volume" }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "vehicle/propulsion_code",
+          "name": "propulsion_code",
+          "description": "Fuel or propulsion type of the vehicle.",
+          "sc:sameAs": "http://automotive.eurecom.fr/vsso#Powertrain",
+          "cr:dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "vehicle/age_of_vehicle",
+          "name": "age_of_vehicle",
+          "description": "Age of the vehicle in years.",
+          "sc:sameAs": "http://automotive.eurecom.fr/vsso#Vehicle",
+          "cr:dataType": "sc:Number",
+          "qudt:hasUnit": { "@id": "unit:YR" },
+          "qudt:hasQuantityKind": { "@id": "http://qudt.org/vocab/quantitykind/Time" }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "vehicle/generic_make_model",
+          "name": "generic_make_model",
+          "description": "Generic make and model description of the vehicle.",
+          "sc:sameAs": "http://automotive.eurecom.fr/vsso#Model",
+          "cr:dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "vehicle/driver_imd_decile",
+          "name": "driver_imd_decile",
+          "description": "Index of Multiple Deprivation decile of the driver's home area (1 = most deprived, 10 = least deprived).",
+          "sc:sameAs": "https://schema.org/Rating",
+          "cr:dataType": "sc:Number",
+          "qudt:hasUnit": { "@id": "unit:NUM" },
+          "qudt:hasQuantityKind": { "@id": "http://qudt.org/vocab/quantitykind/Dimensionless" }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "vehicle/lsoa_of_driver",
+          "name": "lsoa_of_driver",
+          "description": "Lower Super Output Area code of the driver's home address.",
+          "sc:sameAs": "https://schema.org/Place",
+          "cr:dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "vehicle/escooter_flag",
+          "name": "escooter_flag",
+          "description": "Flag indicating whether the vehicle is an e-scooter.",
+          "sc:sameAs": "http://automotive.eurecom.fr/vsso#Vehicle",
+          "cr:dataType": "sc:Number",
+          "qudt:hasUnit": { "@id": "unit:NUM" },
+          "qudt:hasQuantityKind": { "@id": "http://qudt.org/vocab/quantitykind/Dimensionless" }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "vehicle/driver_distance_banding",
+          "name": "driver_distance_banding",
+          "description": "Banded distance category for the driver's journey.",
+          "sc:sameAs": "https://schema.org/Distance",
+          "cr:dataType": "sc:Text"
+        }
+      ]
+    },
+    {
+      "@type": "cr:RecordSet",
+      "@id": "casualty",
+      "name": "casualty",
+      "description": "One record per casualty (person killed or injured) in a collision.",
+      "cr:source": { "@id": "casualty-csv" },
+      "cr:field": [
+        {
+          "@type": "cr:Field",
+          "@id": "casualty/casualty_id",
+          "name": "casualty_id",
+          "description": "Surrogate primary key for the casualty record.",
+          "sc:sameAs": "https://schema.org/identifier",
+          "cr:dataType": "sc:Number",
+          "qudt:hasUnit": { "@id": "unit:NUM" },
+          "qudt:hasQuantityKind": { "@id": "http://qudt.org/vocab/quantitykind/Dimensionless" }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "casualty/collision_index",
+          "name": "collision_index",
+          "description": "Foreign key linking to the collision table.",
+          "sc:sameAs": "https://schema.org/identifier",
+          "cr:dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "casualty/vehicle_reference",
+          "name": "vehicle_reference",
+          "description": "Reference number of the vehicle the casualty was in or struck by.",
+          "sc:sameAs": "https://schema.org/identifier",
+          "cr:dataType": "sc:Number",
+          "qudt:hasUnit": { "@id": "unit:NUM" },
+          "qudt:hasQuantityKind": { "@id": "http://qudt.org/vocab/quantitykind/Dimensionless" }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "casualty/casualty_reference",
+          "name": "casualty_reference",
+          "description": "Sequential reference number of the casualty within a collision.",
+          "sc:sameAs": "https://schema.org/identifier",
+          "cr:dataType": "sc:Number",
+          "qudt:hasUnit": { "@id": "unit:NUM" },
+          "qudt:hasQuantityKind": { "@id": "http://qudt.org/vocab/quantitykind/Dimensionless" }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "casualty/casualty_class",
+          "name": "casualty_class",
+          "description": "Class of the casualty (driver, passenger, pedestrian).",
+          "sc:sameAs": "http://cef.uv.es/lodroadtran18/def/transporte/dtx_srti#InjuryStatusEnum",
+          "cr:dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "casualty/sex_of_casualty",
+          "name": "sex_of_casualty",
+          "description": "Sex of the casualty.",
+          "sc:sameAs": "http://xmlns.com/foaf/0.1/gender",
+          "cr:dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "casualty/age_of_casualty",
+          "name": "age_of_casualty",
+          "description": "Age of the casualty in years.",
+          "sc:sameAs": "http://xmlns.com/foaf/0.1/age",
+          "cr:dataType": "sc:Number",
+          "qudt:hasUnit": { "@id": "unit:YR" },
+          "qudt:hasQuantityKind": { "@id": "http://qudt.org/vocab/quantitykind/Time" }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "casualty/age_band_of_casualty",
+          "name": "age_band_of_casualty",
+          "description": "Age band category of the casualty.",
+          "sc:sameAs": "http://xmlns.com/foaf/0.1/age",
+          "cr:dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "casualty/casualty_severity",
+          "name": "casualty_severity",
+          "description": "Severity of injury sustained by the casualty: Fatal, Serious, or Slight.",
+          "sc:sameAs": "http://cef.uv.es/lodroadtran18/def/transporte/dtx_srti#InjuryStatusEnum",
+          "cr:dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "casualty/pedestrian_location",
+          "name": "pedestrian_location",
+          "description": "Location of the pedestrian at the time of collision.",
+          "sc:sameAs": "http://cef.uv.es/lodroadtran18/def/transporte/dtx_srti#Person",
+          "cr:dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "casualty/pedestrian_movement",
+          "name": "pedestrian_movement",
+          "description": "Movement of the pedestrian at the time of collision.",
+          "sc:sameAs": "http://cef.uv.es/lodroadtran18/def/transporte/dtx_srti#Person",
+          "cr:dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "casualty/car_passenger",
+          "name": "car_passenger",
+          "description": "Seating position if the casualty was a car passenger.",
+          "sc:sameAs": "http://cef.uv.es/lodroadtran18/def/transporte/dtx_srti#Occupant",
+          "cr:dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "casualty/bus_or_coach_passenger",
+          "name": "bus_or_coach_passenger",
+          "description": "Seating position if the casualty was a bus or coach passenger.",
+          "sc:sameAs": "http://cef.uv.es/lodroadtran18/def/transporte/dtx_srti#Occupant",
+          "cr:dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "casualty/pedestrian_road_maintenance_worker",
+          "name": "pedestrian_road_maintenance_worker",
+          "description": "Whether the pedestrian casualty was a road maintenance worker.",
+          "sc:sameAs": "http://cef.uv.es/lodroadtran18/def/transporte/dtx_srti#Person",
+          "cr:dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "casualty/casualty_type",
+          "name": "casualty_type",
+          "description": "Type/role of the casualty (e.g. motorcyclist, cyclist).",
+          "sc:sameAs": "http://cef.uv.es/lodroadtran18/def/transporte/dtx_srti#Person",
+          "cr:dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "casualty/casualty_imd_decile",
+          "name": "casualty_imd_decile",
+          "description": "Index of Multiple Deprivation decile of the casualty's home area.",
+          "sc:sameAs": "https://schema.org/Rating",
+          "cr:dataType": "sc:Number",
+          "qudt:hasUnit": { "@id": "unit:NUM" },
+          "qudt:hasQuantityKind": { "@id": "http://qudt.org/vocab/quantitykind/Dimensionless" }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "casualty/lsoa_of_casualty",
+          "name": "lsoa_of_casualty",
+          "description": "Lower Super Output Area code of the casualty's home address.",
+          "sc:sameAs": "https://schema.org/Place",
+          "cr:dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "casualty/enhanced_casualty_severity",
+          "name": "enhanced_casualty_severity",
+          "description": "Enhanced severity classification for the casualty using adjusted methodology.",
+          "sc:sameAs": "http://cef.uv.es/lodroadtran18/def/transporte/dtx_srti#InjuryStatusEnum",
+          "cr:dataType": "sc:Text"
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "casualty/casualty_injury_based",
+          "name": "casualty_injury_based",
+          "description": "Injury-based severity score for the casualty.",
+          "sc:sameAs": "http://cef.uv.es/lodroadtran18/def/transporte/dtx_srti#Accident",
+          "cr:dataType": "sc:Number",
+          "qudt:hasUnit": { "@id": "unit:NUM" },
+          "qudt:hasQuantityKind": { "@id": "http://qudt.org/vocab/quantitykind/Dimensionless" }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "casualty/casualty_adjusted_severity_serious",
+          "name": "casualty_adjusted_severity_serious",
+          "description": "Probability score that the casualty is Seriously injured (adjusted methodology).",
+          "sc:sameAs": "http://cef.uv.es/lodroadtran18/def/transporte/dtx_srti#InjuryStatusEnum",
+          "cr:dataType": "sc:Number",
+          "qudt:hasUnit": { "@id": "unit:NUM" },
+          "qudt:hasQuantityKind": { "@id": "http://qudt.org/vocab/quantitykind/Dimensionless" }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "casualty/casualty_adjusted_severity_slight",
+          "name": "casualty_adjusted_severity_slight",
+          "description": "Probability score that the casualty is Slightly injured (adjusted methodology).",
+          "sc:sameAs": "http://cef.uv.es/lodroadtran18/def/transporte/dtx_srti#InjuryStatusEnum",
+          "cr:dataType": "sc:Number",
+          "qudt:hasUnit": { "@id": "unit:NUM" },
+          "qudt:hasQuantityKind": { "@id": "http://qudt.org/vocab/quantitykind/Dimensionless" }
+        },
+        {
+          "@type": "cr:Field",
+          "@id": "casualty/casualty_distance_banding",
+          "name": "casualty_distance_banding",
+          "description": "Banded distance category for the casualty's journey.",
+          "sc:sameAs": "https://schema.org/Distance",
+          "cr:dataType": "sc:Text"
+        }
+      ]
+    }
+  ]
+}
