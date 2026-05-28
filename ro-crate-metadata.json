@@ -21,7 +21,9 @@
         { "@id": "#author-c" },
         { "@id": "#author-d" }
       ],
+      "identifier": "https://doi.org/10.5281/zenodo.20434482",
       "hasPart": [
+        { "@id": "CITATION.cff" },
         { "@id": "src/scripts/01-load-merge.py" },
         { "@id": "src/notebooks/02-explore.ipynb" },
         { "@id": "src/scripts/03-prepare-features.py" },
@@ -53,6 +55,16 @@
         { "@id": "outputs/figures/fig-severity-distribution-2023-v1.png" }
       ],
       "isBasedOn": [ { "@id": "https://www.gov.uk/government/statistical-data-sets/road-safety-open-data" } ]
+    },
+
+    {
+      "@id": "CITATION.cff",
+      "@type": ["File", "CreativeWork"],
+      "name": "Citation metadata",
+      "description": "Citation File Format metadata for citing the GitHub-Zenodo archived repository.",
+      "encodingFormat": "text/vnd.citationstyles.csl+yaml",
+      "identifier": "https://doi.org/10.5281/zenodo.20434482",
+      "about": { "@id": "./" }
     },
 
     {

@@ -4,6 +4,7 @@
   "name": "Crash Severity Prediction for Emergency Dispatch",
   "description": "Data Stewardship 2026 Part 3 experiment setup for predicting road collision severity from scene conditions. Uses a Random Forest classifier based on 2023 UK Road Safety Open Data (STATS19).",
   "version": "1.0.0",
+  "identifier": "https://doi.org/10.5281/zenodo.20434482",
   "applicationCategory": "Machine Learning",
   "codeRepository": "https://github.com/maxi-seiringer/dast-2026-crash-severity-prediction",
   "issueTracker": "https://github.com/maxi-seiringer/dast-2026-crash-severity-prediction/issues",
