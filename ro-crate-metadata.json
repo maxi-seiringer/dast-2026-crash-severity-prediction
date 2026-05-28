@@ -51,7 +51,8 @@
         { "@id": "outputs/figures/fig-hist-vehicle_type-2023-v1.png" },
         { "@id": "outputs/figures/fig-hist-weather_conditions-2023-v1.png" },
         { "@id": "outputs/figures/fig-severity-distribution-2023-v1.png" },
-        { "@id": "outputs/model-cards/model-card-model-random-forest-severity-2023-v1.md" }
+        { "@id": "docs/model-cards/model-card-model-random-forest-severity-2023-v1.md" },
+        { "@id": "docs/fair4ml-model-random-forest-severity-2023-v1.jsonld"}
       ],
       "isBasedOn": [ { "@id": "https://www.gov.uk/government/statistical-data-sets/road-safety-open-data" } ]
     },
@@ -211,7 +212,10 @@
       "name": "Random Forest Model",
       "license": { "@id": "https://creativecommons.org/licenses/by/4.0/" },
       "encodingFormat": "application/octet-stream",
-      "identifier": "https://doi.org/10.70124/m2a28-1q780"
+      "identifier": "https://doi.org/10.70124/m2a28-1q780",
+      "subjectOf": {
+        "@id": "docs/fair4ml-model-random-forest-severity-2023-v1.jsonld"
+      }
     },
 
     {
@@ -275,6 +279,20 @@
       "@id": "#dept-transport",
       "@type": "Organization",
       "name": "Department for Transport, United Kingdom"
+    },
+    {
+      "@id": "docs/fair4ml-model-random-forest-severity-2023-v1.jsonld",
+      "@type": ["File", "CreativeWork"],
+      "name": "FAIR4ML metadata for the Random Forest crash severity classifier",
+      "description": "Machine-readable FAIR4ML JSON-LD metadata describing the trained Random Forest model, datasets, evaluation metrics, intended use, and limitations.",
+      "encodingFormat": "application/ld+json",
+      "license": { "@id": "https://creativecommons.org/licenses/by/4.0/" },
+      "about": {
+        "@id": "outputs/models/model-random-forest-severity-2023-v1.pkl"
+      },
+      "conformsTo": {
+        "@id": "https://w3id.org/fair4ml#"
+      }
     },
     {
       "@id": "docs/model-cards/model-card-model-random-forest-severity-2023-v1.md",
