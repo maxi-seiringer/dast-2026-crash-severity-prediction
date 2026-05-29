@@ -8,10 +8,10 @@ trained using a Random Forest classification algorithm implemented in Python and
 test datasets generated during the feature preparation workflow. The primary objective of the model is to support 
 exploratory research and experimentation related to traffic safety analysis and accident severity prediction.
 
-The model consumes casualty severity, road type, speed limit, weather conditions, light conditions, road surface 
-conditions, time, day of week, number of vehicles and vehicle types derived from collision, vehicle, and casualty 
-records included in the STATS19 open data release. 
-The output of the model is a predicted accident severity (slight, serious, fatal) category based on the processed 
+The model uses road type, speed limit, weather conditions, light conditions, road surface conditions, time, day of week,
+number of vehicles, and vehicle type features derived from collision, vehicle, and casualty records included in the
+STATS19 open data release. The target label used during training and evaluation is `casualty_severity`.
+The output of the model is a predicted accident severity (slight, serious, fatal) category based on the processed
 feature set.
 
 The model artifact is stored at `outputs/models/model-random-forest-severity-2023-v1.pkl` and archived under the DOI

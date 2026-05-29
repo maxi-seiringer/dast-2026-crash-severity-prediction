@@ -83,7 +83,7 @@ DBREPO_PASSWORD=<DBRepo password>
 |   |-- validation/      # Validation outputs
 |   |-- croissant.json   # Croissant metadata for input datasets
 |   |-- fair4ml-model-random-forest-severity-2023-v1.jsonld
-|   `-- model-card.md
+|   `-- model-cards/     # Model Card documentation
 |-- outputs/
 |   |-- figures/         # Generated plots and visual diagnostics
 |   |-- models/          # Trained model artefacts
@@ -176,7 +176,7 @@ The repository includes the following documentation and metadata artefacts:
 | `codemeta.json` | CodeMeta 2.0 metadata for the software component, including dependencies and repository URL. |
 | `docs/croissant.json` | Croissant JSON-LD metadata for the input datasets, including fields, data types, units, distribution information, and licence. |
 | `docs/fair4ml-model-random-forest-severity-2023-v1.jsonld` | FAIR4ML metadata for the trained Random Forest model, including hyperparameters, datasets, evaluation metrics, intended use, and limitations. |
-| `docs/model-card.md` | Model Card for the trained model. |
+| `docs/model-cards/model-card-model-random-forest-severity-2023-v1.md` | Model Card for the trained model. |
 | `docs/validation/RO-Crate-Validation-Report.txt` | RO-Crate validation output. |
 | `CITATION.cff` | Citation metadata for the GitHub-Zenodo archived repository. |
 
