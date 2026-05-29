@@ -1,130 +1,326 @@
 # Crash Severity Prediction for Emergency Dispatch
 
-This repository contains the Data Stewardship 2026 Part 3 experiment setup for
-predicting road collision severity from scene conditions that are likely to be
-known at the time of an emergency call.
+[![DOI](https://zenodo.org/badge/1228289570.svg)](https://doi.org/10.5281/zenodo.20434482)
 
-The selected use case is based on the 2023 UK Road Safety Open Data (STATS19)
-published by the UK Department for Transport. The intended machine learning task
-is a three-class severity prediction problem: slight, serious, or fatal. The
-planned model is a Random Forest classifier trained on features such as road
-type, speed limit, weather, lighting, road surface, time of day, day of week,
-number of vehicles involved, and vehicle type.
+## Abstract
 
-## Repository structure
+This repository contains the Data Stewardship 2026 Part 3 open-science
+experiment for predicting road collision casualty severity from scene conditions
+that may be known during or shortly after an emergency call. The experiment uses
+the 2023 UK Road Safety Open Data (STATS19) published by the UK Department for
+Transport and models the target as a three-class classification problem:
+`Fatal`, `Serious`, or `Slight`.
+
+The reproducible workflow prepares linked collision, vehicle, and casualty
+records; exposes query-ready DBRepo views; trains a scikit-learn Random Forest
+classifier; evaluates the model on a held-out test split; and documents the
+experiment with RO-Crate, CodeMeta, Croissant, FAIR4ML, and model-card metadata.
+The features used by the model are road type, speed limit, weather conditions,
+light conditions, road surface conditions, day of week, hour of day, number of
+vehicles, and vehicle type.
+
+## Requirements And Installation
+
+The project is implemented in Python and SQL. A DBRepo connection is required
+for the final reproducible pipeline because the training and evaluation scripts
+load data from DBRepo views rather than local CSV files.
+
+Required software:
+
+- Python 3
+- pip
+- Jupyter Notebook or JupyterLab for the notebooks in `src/notebooks/`
+- Access to the TU Wien DBRepo test instance used by the group
+
+Install the Python dependencies from the repository root:
+
+```bash
+python -m venv .venv
+.venv\Scripts\activate
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+```
+
+On macOS or Linux, activate the environment with:
+
+```bash
+source .venv/bin/activate
+```
+
+The pinned Python dependencies are listed in `requirements.txt`:
+
+- `pandas==3.0.3`
+- `requests==2.34.2`
+- `numpy==2.4.6`
+- `scikit-learn==1.8.0`
+- `joblib==1.5.3`
+- `matplotlib==3.10.9`
+- `seaborn==0.13.2`
+- `python-dotenv==1.2.2`
+- `dbrepo==1.13.5`
+
+Create a local `.env` file for DBRepo credentials. This file must not be
+committed. The scripts expect these variables:
+
+```text
+DBREPO_API_BASE=<DBRepo REST API base URL>
+DBREPO_DB_ID=<DBRepo database UUID>
+DBREPO_USER=<DBRepo username>
+DBREPO_PASSWORD=<DBRepo password>
+```
+
+## Repository Structure
 
 ```text
 .
-|-- config/              # Configuration files for data processing and modelling
-|-- data/                # Input and derived datasets
-|   |-- raw/             # Original downloaded source files
-|   |-- interim/         # Intermediate files created during processing
-|   `-- processed/       # Final analysis-ready datasets
-|-- docs/                # Assignment material, use-case notes, and project docs
-|   |-- reference/       # Assignment/reference documents
+|-- data/
+|   |-- raw/             # Original STATS19 input tables
+|   |-- interim/         # Joined intermediate feature table
+|   `-- processed/       # Train, validation, and test splits
+|-- docs/
+|   |-- reference/       # Assignment document
 |   |-- use-case/        # Selected use-case description
-|   `-- validation/      # Validations from various tools for project artefacts
-|-- outputs/             # Generated experiment outputs
-|   |-- figures/         # Plots and visual diagnostics
+|   |-- validation/      # Validation outputs
+|   |-- croissant.json   # Croissant metadata for input datasets
+|   |-- fair4ml-model-random-forest-severity-2023-v1.jsonld
+|   `-- model-card.md
+|-- outputs/
+|   |-- figures/         # Generated plots and visual diagnostics
 |   |-- models/          # Trained model artefacts
-|   `-- reports/         # Metrics, tables, and evaluation summaries
-`-- src/                 # Reproducible scripts and notebooks
-    |-- notebooks/       # Jupyter Notebooks
-    |-- sql/             # SQL Create Scripts + Entity Relation Diagrams
-    `-- dbrepo/          # Scripts to connect with DBRepo    
+|   `-- reports/         # Metrics and prediction reports
+|-- src/
+|   |-- notebooks/       # DBRepo, semantic, unit, and exploration notebooks
+|   |-- scripts/         # Reproducible processing, training, and evaluation
+|   |-- sql/             # SQL schema, views, and ER diagram
+|   `-- utils/           # Shared DBRepo API helper
+|-- CITATION.cff         # Citation metadata referencing the Zenodo DOI
+|-- codemeta.json        # CodeMeta 2.0 software metadata
+|-- requirements.txt     # Pinned Python dependencies
+`-- ro-crate-metadata.json
 ```
 
-## File organisation
+## File Organisation
 
-Use lowercase kebab-case file names with short semantic parts separated by
-hyphens. Include the source, topic, year, processing stage, and version where
-they help identify the file without opening it.
-
-General pattern:
+Files use lowercase kebab-case names with semantic parts separated by hyphens.
+Where useful, file names include source, topic, year, processing stage, and
+version:
 
 ```text
 <source>-<topic>-<year>-<stage>-v<major>.<extension>
 ```
 
-Input datasets in `data/`:
+Input and derived data use stages such as `raw`, `interim`, and `processed`.
+Figures use `fig-<analysis-topic>-<year>-v<major>.png`. Evaluation reports use
+`report-<metric-or-scope>-<year>-v<major>.<extension>`. Model artefacts use
+`model-<algorithm>-<target>-<year>-v<major>.pkl`. Scripts use a numeric prefix
+that reflects the execution order.
 
-- Raw STATS19 inputs keep their official names where possible, for example
-  `dft-road-casualty-statistics-collision-2023.csv`.
-- Derived datasets add a stage and version, for example
-  `stats19-collision-vehicle-features-2023-processed-v1.csv`.
-- Temporary or join outputs belong in `data/interim/`, for example
-  `stats19-collision-vehicle-join-2023-interim-v1.csv`.
+## Inputs
 
-Output files in `outputs/`:
+The input data comes from the UK Department for Transport STATS19 2023 road
+safety open dataset. The source dataset is available from:
 
-- Figures use `fig-<analysis-topic>-<year>-v<major>.png`, for example
-  `fig-feature-importance-2023-v1.png`.
-- Evaluation reports use `report-<metric-or-scope>-<year>-v<major>.<extension>`,
-  for example `report-classification-metrics-2023-v1.csv`.
-- Model artefacts use `model-<algorithm>-<target>-<year>-v<major>.pkl`, for
-  example `model-random-forest-severity-2023-v1.pkl`.
+https://www.gov.uk/government/statistical-data-sets/road-safety-open-data
 
-Scripts and notebooks in `src/`:
+Input files in this repository:
 
-- Scripts use a numeric execution prefix and action-oriented name, for example
-  `01-download-stats19-data.py`, `02-prepare-features.py`, and
-  `03-train-random-forest.py`.
-- Notebooks follow the same prefix when they are part of the reproducible
-  workflow, for example `01-explore-stats19-data.ipynb`.
+| Path | Description | Licence |
+|------|-------------|---------|
+| `data/raw/stats19-collision-2023-raw-v1.csv` | Collision-level STATS19 records with location, road, time, weather, lighting, and severity context. | Open Government Licence v3.0 |
+| `data/raw/stats19-vehicle-2023-raw-v1.csv` | Vehicle-level STATS19 records linked to collisions. | Open Government Licence v3.0 |
+| `data/raw/stats19-casualty-2023-raw-v1.csv` | Casualty-level STATS19 records containing the prediction target `casualty_severity`. | Open Government Licence v3.0 |
+| `data/interim/stats19-collision-vehicle-casualty-2023-interim-v1.csv` | Intermediate joined table derived from collision, vehicle, and casualty records. | Open Government Licence v3.0 |
+| `data/processed/stats19-features-train-2023-processed-v1.csv` | Training split used for fitting the Random Forest classifier. | Open Government Licence v3.0 |
+| `data/processed/stats19-features-val-2023-processed-v1.csv` | Validation split used during model development. | Open Government Licence v3.0 |
+| `data/processed/stats19-features-test-2023-processed-v1.csv` | Held-out test split used for final evaluation. | Open Government Licence v3.0 |
 
-Configuration files in `config/`:
+## Outputs
 
-- Configuration files use `config-<workflow-part>-v<major>.<extension>`, for
-  example `config-random-forest-v1.yaml`.
-- Local secrets or credentials must not be committed. Use environment variables
-  or local files excluded by `.gitignore`.
+Generated outputs are stored under `outputs/`.
 
-## SQL Views
+| Path | Description | Licence |
+|------|-------------|---------|
+| `outputs/models/model-random-forest-severity-2023-v1.pkl` | Trained Random Forest model artefact produced by `src/scripts/04-train.py`. | CC BY 4.0 |
+| `outputs/reports/report-classification-metrics-2023-v1.csv` | Precision, recall, F1-score, support, accuracy, macro average, and weighted average metrics for the test split. | CC BY 4.0 |
+| `outputs/reports/report-predictions-test-2023-v1.csv` | Test-set features with actual and predicted casualty severity labels. | CC BY 4.0 |
+| `outputs/figures/fig-confusion-matrix-2023-v1.png` | Confusion matrix for the held-out test split. | CC BY 4.0 |
+| `outputs/figures/fig-feature-importance-2023-v1.png` | Random Forest feature-importance chart. | CC BY 4.0 |
+| `outputs/figures/fig-severity-distribution-2023-v1.png` | Distribution of casualty severity classes. | CC BY 4.0 |
+| `outputs/figures/fig-hist-day_of_week-2023-v1.png` | Histogram for day of week. | CC BY 4.0 |
+| `outputs/figures/fig-hist-light_conditions-2023-v1.png` | Histogram for light conditions. | CC BY 4.0 |
+| `outputs/figures/fig-hist-number_of_vehicles-2023-v1.png` | Histogram for number of vehicles. | CC BY 4.0 |
+| `outputs/figures/fig-hist-road_surface_conditions-2023-v1.png` | Histogram for road surface conditions. | CC BY 4.0 |
+| `outputs/figures/fig-hist-road_type-2023-v1.png` | Histogram for road type. | CC BY 4.0 |
+| `outputs/figures/fig-hist-speed_limit-2023-v1.png` | Histogram for speed limit. | CC BY 4.0 |
+| `outputs/figures/fig-hist-vehicle_type-2023-v1.png` | Histogram for vehicle type. | CC BY 4.0 |
+| `outputs/figures/fig-hist-weather_conditions-2023-v1.png` | Histogram for weather conditions. | CC BY 4.0 |
 
-The views in `src/sql/04_views.sql` flatten the three raw tables 
-(collision, vehicle, casualty) into query-ready formats for the ML pipeline.
+The current test-set metrics are:
+
+| Metric | Value |
+|--------|------:|
+| Accuracy | 0.6298 |
+| Weighted F1-score | 0.6407 |
+| Macro F1-score | 0.3950 |
+| Fatal F1-score | 0.0495 |
+| Serious F1-score | 0.3884 |
+| Slight F1-score | 0.7470 |
+
+## Metadata Artefacts
+
+The repository includes the following documentation and metadata artefacts:
+
+| Path | Standard / Purpose |
+|------|--------------------|
+| `ro-crate-metadata.json` | RO-Crate metadata describing the experiment package, datasets, scripts, outputs, authors, licences, and relationships. |
+| `codemeta.json` | CodeMeta 2.0 metadata for the software component, including dependencies and repository URL. |
+| `docs/croissant.json` | Croissant JSON-LD metadata for the input datasets, including fields, data types, units, distribution information, and licence. |
+| `docs/fair4ml-model-random-forest-severity-2023-v1.jsonld` | FAIR4ML metadata for the trained Random Forest model, including hyperparameters, datasets, evaluation metrics, intended use, and limitations. |
+| `docs/model-card.md` | Model Card for the trained model. |
+| `docs/validation/RO-Crate-Validation-Report.txt` | RO-Crate validation output. |
+| `CITATION.cff` | Citation metadata for the GitHub-Zenodo archived repository. |
+
+## DBRepo Schema And Views
+
+The relational schema is defined in:
+
+- `src/sql/01_collision.sql`
+- `src/sql/02_vehicle.sql`
+- `src/sql/03_casualty.sql`
+
+The entity-relationship diagram is stored at `src/sql/ER-Diagram.png`.
+
+The query-ready views are defined in `src/sql/04_views.sql`, with a
+MariaDB-compatible version in `src/sql/04_views_mariadb.sql`.
 
 | View | Purpose |
 |------|---------|
-| `v_ml_features` | Main feature table for model training – one row per casualty with all scene-condition features and the target label |
-| `v_severity_distribution` | Class distribution of casualty severity with counts and percentages |
-| `v_collision_summary` | One row per collision with aggregated severity and scene conditions |
-| `v_feature_null_check` | Null value counts for all ML feature columns |
+| `v_ml_features` | Main feature table for model training; one row per casualty with scene-condition features and the target label. |
+| `v_severity_distribution` | Class distribution of casualty severity with counts and percentages. |
+| `v_collision_summary` | One row per collision with aggregated severity and scene conditions. |
+| `v_feature_null_check` | Null-value counts for ML feature columns. |
 
-## RO-Crate
+The scripts also expect split-specific DBRepo views for training, validation,
+and testing. The accepted candidate names are:
 
-This repository includes an [RO-Crate](https://www.researchobject.org/ro-crate/) metadata file
-(`ro-crate-metadata.json`) describing all datasets, code, authors, licences, and relationships
-in this experiment package. Validation output is in [`docs/validation/`](docs/validation/).
+- training: `v_features_train`, `v_ml_features_train`, `ml_features_train`, `features_train`
+- validation: `v_features_val`, `v_ml_features_val`, `ml_features_val`, `features_val`
+- testing: `v_features_test`, `v_ml_features_test`, `ml_features_test`, `features_test`
 
-## Pipeline
+## Step-By-Step Reproduction
 
-**`01-load-merge.py`** – Loads the three raw STATS19 CSV files and merges them into one table.
+Run all commands from the repository root.
 
-**`02-explore.ipynb`** – Explores the data and saves one histogram per feature as a PNG file.
+1. Install dependencies and configure DBRepo credentials as described in
+   [Requirements And Installation](#requirements-and-installation).
 
-**`03-prepare-features.py`** – Cleans the data and splits it into train, validation, and test sets.
+2. Create the DBRepo database schema and load the source data using the DBRepo
+   notebooks:
 
-**`04-train.py`** – Trains a Random Forest Classifier and saves the model as a .pkl file.
+   ```text
+   src/notebooks/dbrepo_schema.ipynb
+   src/notebooks/dbrepo_load_verify.ipynb
+   src/notebooks/dbrepo_create_views.ipynb
+   ```
 
-**`05-evaluate.py`** – Runs the model on the test set and saves the confusion matrix, feature importance chart, and classification report.
+   The schema SQL files and views in `src/sql/` document the database structure
+   and the query-ready subsets used by the pipeline.
+
+3. Record semantic mappings and unit mappings:
+
+   ```text
+   src/notebooks/semantic_mapping.ipynb
+   src/notebooks/unit_mapping.ipynb
+   ```
+
+4. Fetch the DBRepo feature view into the local interim file:
+
+   ```bash
+   python src/scripts/01-load-merge.py
+   ```
+
+5. Explore the interim data and regenerate exploratory figures:
+
+   ```text
+   src/notebooks/02-explore.ipynb
+   ```
+
+6. Prepare model features and create train, validation, and test splits:
+
+   ```bash
+   python src/scripts/03-prepare-features.py
+   ```
+
+7. Train the Random Forest classifier:
+
+   ```bash
+   python src/scripts/04-train.py
+   ```
+
+   This writes `outputs/models/model-random-forest-severity-2023-v1.pkl`.
+
+8. Evaluate the trained model:
+
+   ```bash
+   python src/scripts/05-evaluate.py
+   ```
+
+   This writes the classification report, prediction report, confusion matrix,
+   and feature-importance figure under `outputs/`.
+
+9. Optionally compare DBRepo API results with the local processed splits:
+
+   ```bash
+   python src/scripts/verify_api_matches_local.py
+   ```
+
+10. Validate metadata artefacts before publication:
+
+   - Validate `ro-crate-metadata.json` with `ro-crate-validator`.
+   - Check `codemeta.json` against the CodeMeta 2.0 schema.
+   - Check `docs/croissant.json` as Croissant JSON-LD.
+   - Review `docs/fair4ml-model-random-forest-severity-2023-v1.jsonld`.
+
+## Contributors
+
+| Role | Name | ORCID |
+|------|------|-------|
+| A | Sebastian Schnitzer | https://orcid.org/0009-0009-5014-2131 |
+| B | Maxime Philippon | https://orcid.org/0009-0003-2394-5285 |
+| C | Maximillian Seiringer | https://orcid.org/0009-0008-4198-6693 |
+| D | Anton Windsperger | https://orcid.org/0009-0008-9353-7427 |
+
+## Citation
+
+If you use or refer to this repository, cite the archived Zenodo record:
+
+```text
+Schnitzer, S., Philippon, M., Seiringer, M., & Windsperger, A. (2026).
+Crash Severity Prediction for Emergency Dispatch (Version 1.0.0).
+Zenodo. https://doi.org/10.5281/zenodo.20434482
+```
+
+The machine-readable citation metadata is available in `CITATION.cff`.
+
+## Licences
+
+This project uses different licences for the three relevant categories of
+artefacts.
+
+| Artefact category | Licence | Scope and obligations |
+|-------------------|---------|-----------------------|
+| Input data | Open Government Licence v3.0 (OGL-UK-3.0) | Applies to the original and derived STATS19 data. Reuse, copying, publication, distribution, and adaptation are permitted, including commercial use, provided the source is acknowledged. |
+| Software / code | MIT License | Applies to Python scripts, notebooks, SQL files, and supporting software metadata in this repository. Reuse, modification, distribution, and commercial use are permitted if the copyright and licence notice are preserved. |
+| Produced / output data | Creative Commons Attribution 4.0 International (CC BY 4.0) | Applies to trained model artefacts, generated datasets, figures, prediction reports, and evaluation reports. Reuse and adaptation are permitted with appropriate attribution. |
+
+The MIT software licence was selected because it is permissive and compatible
+with the OGL-UK-3.0 input data licence. CC BY 4.0 was selected for produced
+research outputs because it supports broad reuse while preserving attribution.
 
 ## References
 
 - Assignment: `docs/reference/2026-dast-exercise-part3-assignment.pdf`
 - Selected use case: `docs/use-case/12226609-use-case-description.pdf`
-
-## License
-
-This project applies different licenses to its distinct components to align with Open Science best practices and ensure maximum reusability:
-
-* **Input Data:** The raw STATS19 UK Road Safety data is subject to the [Open Government Licence v3.0 (OGL-UK-3.0)](https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/). 
-  * **What it allows:** You are free to copy, publish, distribute, transmit, and adapt the data for commercial and non-commercial purposes.
-
-* **Source Code:** All Python scripts, Jupyter notebooks, and SQL code provided in the `src/` directory are licensed under the [MIT License](https://opensource.org/licenses/MIT).
-  * **What it allows:** A highly permissive license that allows anyone to reuse, modify, distribute, and commercially use the code, provided the original copyright notice is included.
-  * **Justification:** The MIT License is the standard for academic and open-source software. It was chosen to maximize software interoperability, minimize legal barriers, and encourage unrestricted collaboration.
-
-* **Outputs & Models:** The derived datasets, generated figures, classification reports, and the trained Random Forest model artefacts in the `outputs/` directory are made available under the [Creative Commons Attribution 4.0 International License (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/).
-  * **What it allows:** You are free to share (copy and redistribute) and adapt (remix, transform) the material for any purpose, as long as you give appropriate credit to the authors.
-  * **Justification:** CC BY 4.0 is the recommended standard for open scientific data and machine learning weights. It ensures the research outputs are fully FAIR (Findable, Accessible, Interoperable, Reusable) while guaranteeing proper academic attribution for the creators.
+- UK Road Safety Open Data: https://www.gov.uk/government/statistical-data-sets/road-safety-open-data
+- GitHub repository: https://github.com/maxi-seiringer/dast-2026-crash-severity-prediction
+- Zenodo DOI: https://doi.org/10.5281/zenodo.20434482
